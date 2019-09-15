@@ -8,16 +8,34 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
-
+    var locationManager: CLLocationManager?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        locationManager = CLLocationManager()
+        locationManager?.pausesLocationUpdatesAutomatically = true
+        
+        locationManager?.requestAlwaysAuthorization()
+        locationManager?.delegate = self;
+        
+        locationManager?.startUpdatingLocation()
+        NSLog("Created location manager")
         return true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let lastLocation : CLLocation? = locations.last
+        if(lastLocation != nil) {
+            NSLog("didUpdateLocations: %@", lastLocation!)
+        } else {
+            NSLog("didUpdateLocations: last was nil!")
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
