@@ -43,14 +43,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func saveLocation(location: CLLocation) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LocationEntity")
         do {
-            if let records = try persistentContainer.viewContext.fetch(fetchRequest) as? [LocationEntity] {
-                NSLog("Got records: %@", records.count)
+            let managedObjectContext = persistentContainer.viewContext
+            if let records = try managedObjectContext.fetch(fetchRequest) as? [NSManagedObject] {
+                var locationEntity : NSManagedObject? = nil
+                if let firstLocation = records.first {
+                    locationEntity = firstLocation
+                } else {
+                    locationEntity = createRecordForEntity("LocationEntity", inManagedObjectContext: managedObjectContext)
+                }
+                locationEntity?.setValue(location.coordinate.latitude, forKey: "latitude")
+                locationEntity?.setValue(location.coordinate.longitude, forKey: "longitude")
+                locationEntity?.setValue(location.timestamp, forKey: "time")
+                do {
+                    try managedObjectContext.save()
+                } catch {
+                    NSLog("Failed to save")
+                }
             } else {
                 NSLog("Haven't got records!");
             }
         } catch {
             NSLog("Unable to fetch records")
         }
+    }
+    
+    private func createRecordForEntity(_ entity: String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> NSManagedObject? {
+        // Helpers
+        var result: NSManagedObject?
+        
+        // Create Entity Description
+        let entityDescription = NSEntityDescription.entity(forEntityName: entity, in: managedObjectContext)
+        
+        if let entityDescription = entityDescription {
+            // Create Managed Object
+            result = NSManagedObject(entity: entityDescription, insertInto: managedObjectContext)
+        }
+        
+        return result
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
