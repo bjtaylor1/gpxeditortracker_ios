@@ -15,13 +15,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var lastReceivedLabel: UILabel!
     @IBOutlet weak var lastUploadedLabel: UILabel!
     
-    var container: NSPersistentContainer!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard container != nil else {
-            fatalError("This view needs a persistent container.")
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
         }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        NSLog("The view has got a managed context: %@", managedContext.debugDescription)
         
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil)
             {(notification) in self.handleNotification(notification: notification) }
@@ -36,6 +38,8 @@ class ViewController: UIViewController {
         locationLabel.text = "the last location"
         lastReceivedLabel.text = "the time it was received"
         lastUploadedLabel.text = "the time it was uploaded"
+        
+        
     }
 
 }

@@ -34,8 +34,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if(lastLocation != nil) {
             
             NSLog("didUpdateLocations: %@", lastLocation!)
+            saveLocation(location: lastLocation!)
         } else {
             NSLog("didUpdateLocations: last was nil!")
+        }
+    }
+    
+    func saveLocation(location: CLLocation) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LocationEntity")
+        do {
+            if let records = try persistentContainer.viewContext.fetch(fetchRequest) as? [LocationEntity] {
+                NSLog("Got records: %@", records.count)
+            } else {
+                NSLog("Haven't got records!");
+            }
+        } catch {
+            NSLog("Unable to fetch records")
         }
     }
 
