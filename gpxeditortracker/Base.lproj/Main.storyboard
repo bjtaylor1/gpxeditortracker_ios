@@ -54,6 +54,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ABd-bU-aKu">
+                                <rect key="frame" x="20" y="319" width="53" height="30"/>
+                                <state key="normal" title="Refresh"/>
+                                <connections>
+                                    <action selector="refreshClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5XR-IS-cv1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -69,19 +76,21 @@
                             <constraint firstItem="e7a-1N-qq1" firstAttribute="trailing" secondItem="QP3-JJ-bAL" secondAttribute="trailing" id="ORz-hM-ABI"/>
                             <constraint firstItem="6VB-ci-RAs" firstAttribute="top" secondItem="5Sr-7s-S4N" secondAttribute="bottom" constant="25" id="PzL-1P-Fy7"/>
                             <constraint firstItem="QP3-JJ-bAL" firstAttribute="trailing" secondItem="vY8-ft-OQc" secondAttribute="trailing" id="RnI-fI-MvN"/>
+                            <constraint firstItem="ABd-bU-aKu" firstAttribute="top" secondItem="vY8-ft-OQc" secondAttribute="bottom" constant="50" id="d7l-3N-8qK"/>
                             <constraint firstItem="mq8-Eh-vZU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="hBX-Ge-tSW"/>
                             <constraint firstItem="6VB-ci-RAs" firstAttribute="leading" secondItem="e7a-1N-qq1" secondAttribute="leading" id="oaY-2K-gwD"/>
                             <constraint firstItem="5Sr-7s-S4N" firstAttribute="trailing" secondItem="6VB-ci-RAs" secondAttribute="trailing" id="tPN-tl-GmV"/>
                             <constraint firstItem="5Sr-7s-S4N" firstAttribute="top" secondItem="mq8-Eh-vZU" secondAttribute="bottom" constant="8" symbolic="YES" id="uJC-6M-2wr"/>
                             <constraint firstItem="e7a-1N-qq1" firstAttribute="leading" secondItem="QP3-JJ-bAL" secondAttribute="leading" id="wT3-vp-SHx"/>
+                            <constraint firstItem="ABd-bU-aKu" firstAttribute="leading" secondItem="vY8-ft-OQc" secondAttribute="leading" id="yNa-Vf-KiJ"/>
                             <constraint firstItem="vY8-ft-OQc" firstAttribute="top" secondItem="QP3-JJ-bAL" secondAttribute="bottom" constant="8" symbolic="YES" id="yOK-dK-pGp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="lastReceivedLabel" destination="e7a-1N-qq1" id="R1U-3n-wM2"/>
-                        <outlet property="lastUploadedLabel" destination="vY8-ft-OQc" id="fRi-vS-cOt"/>
-                        <outlet property="locationLabel" destination="5Sr-7s-S4N" id="K8g-Gd-rSp"/>
+                        <outlet property="lastReceivedLabel" destination="e7a-1N-qq1" id="Sn9-L7-66a"/>
+                        <outlet property="lastUploadedLabel" destination="vY8-ft-OQc" id="E6b-42-raY"/>
+                        <outlet property="locationLabel" destination="5Sr-7s-S4N" id="c5M-0k-2H4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

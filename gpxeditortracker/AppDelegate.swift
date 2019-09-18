@@ -43,8 +43,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func saveLocation(location: CLLocation) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LocationEntity")
         do {
+
             let managedObjectContext = persistentContainer.viewContext
+            
             if let records = try managedObjectContext.fetch(fetchRequest) as? [NSManagedObject] {
+                
                 var locationEntity : NSManagedObject? = nil
                 if let firstLocation = records.first {
                     locationEntity = firstLocation
