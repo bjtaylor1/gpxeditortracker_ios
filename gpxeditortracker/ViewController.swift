@@ -7,14 +7,22 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var lastReceivedLabel: UILabel!
     @IBOutlet weak var lastUploadedLabel: UILabel!
+    
+    var container: NSPersistentContainer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard container != nil else {
+            fatalError("This view needs a persistent container.")
+        }
+        
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil)
             {(notification) in self.handleNotification(notification: notification) }
     }

@@ -12,7 +12,7 @@ import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
-
+    
     var window: UIWindow?
     var locationManager: CLLocationManager?
 
@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let lastLocation : CLLocation? = locations.last
         if(lastLocation != nil) {
+            
             NSLog("didUpdateLocations: %@", lastLocation!)
         } else {
             NSLog("didUpdateLocations: last was nil!")
