@@ -8,16 +8,9 @@
 
 import UIKit
 import CoreData
-
+import MapKit
 class ViewController: UIViewController {
 
-    @IBAction func refreshClicked(_ sender: Any) {
-        refresh()
-    }
-    
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var lastReceivedLabel: UILabel!
-    @IBOutlet weak var lastUploadedLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +23,8 @@ class ViewController: UIViewController {
         refresh()
     }
     
+    var currentPosReceived : MKPointAnnotation?
+    @IBOutlet weak var theMap: MKMapView!
     func refresh() {
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -41,17 +36,24 @@ class ViewController: UIViewController {
         do {
             if let records = try managedContext.fetch(fetchRequest) as? [NSManagedObject] {
                 let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 if let locationEntity = records.first {
                     
                     if  let latitude = locationEntity.value(forKey: "latitude") as? Double,
                         let longitude = locationEntity.value(forKey: "longitude") as? Double {
-                        
-                        locationLabel.text = String(format: "%.5f, %.5f", latitude, longitude)
+                        if(currentPosReceived == nil) {
+                            currentPosReceived = MKPointAnnotation()
+                            theMap.addAnnotation(currentPosReceived!)
+                        }
+                        currentPosReceived?.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+
+                        let region = MKCoordinateRegion(center: currentPosReceived!.coordinate, latitudinalMeters: CLLocationDistance(exactly: 5000)!, longitudinalMeters: CLLocationDistance(exactly: 5000)!)
+
+                        theMap.setRegion(region, animated: true)
+                        //theMap.setRegion(theMap.regionThatFits(region), animated: true)
                     }
                     
                     if let time = locationEntity.value(forKey: "time") as? Date {
-                        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                        lastReceivedLabel.text = formatter.string(from: time)
                     }
                 }
             }
