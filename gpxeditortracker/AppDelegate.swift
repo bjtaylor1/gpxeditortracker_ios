@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager?.pausesLocationUpdatesAutomatically = true
         
         locationManager?.requestAlwaysAuthorization()
+        locationManager?.distanceFilter = 100
         locationManager?.delegate = self;
         
         locationManager?.startUpdatingLocation()
@@ -62,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 } catch {
                     NSLog("Failed to save")
                 }
+                NotificationCenter.default.post(name: .onLocationReceived, object: locationEntity)
             } else {
                 NSLog("Haven't got records!");
             }
