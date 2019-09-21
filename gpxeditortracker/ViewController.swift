@@ -17,6 +17,16 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil)
             {(notification) in self.handleDidBecomeActive(notification: notification) }
+        
+        NotificationCenter.default.addObserver(forName: .onLocationReceived, object: nil, queue: nil)
+        {(notification) in self.handleOnLocationReceivedNotification(notification: notification)}
+    }
+    
+    func handleOnLocationReceivedNotification(notification: Notification) {
+        NSLog("handleOnLocationReceivedNotification: %@", notification.debugDescription)
+        if let location = notification.object as? NSManagedObject {
+            refreshLocationEntity(locationEntity: location)
+        }
     }
     
     func handleDidBecomeActive(notification:Notification) {
@@ -60,6 +70,8 @@ class ViewController: UIViewController {
         
         if let time = locationEntity.value(forKey: "time") as? Date {
         }
+        
+        
     }
     
     var currentPosReceived : MKPointAnnotation?

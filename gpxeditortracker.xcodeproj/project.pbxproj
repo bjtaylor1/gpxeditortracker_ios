@@ -26,6 +26,7 @@
 		AFA43D22232EA63200F5529C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFA43D24232EA63200F5529C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFE980452336386C00B22E18 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		AFE9804723363E5700B22E18 /* Afternoon_Ride.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Afternoon_Ride.gpx; path = ../../Downloads/Afternoon_Ride.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +43,7 @@
 		AFA43D09232EA63100F5529C = {
 			isa = PBXGroup;
 			children = (
+				AFE9804723363E5700B22E18 /* Afternoon_Ride.gpx */,
 				AFA43D14232EA63100F5529C /* gpxeditortracker */,
 				AFA43D13232EA63100F5529C /* Products */,
 			);
