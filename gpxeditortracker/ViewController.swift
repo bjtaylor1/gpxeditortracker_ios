@@ -20,6 +20,9 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: .onLocationReceived, object: nil, queue: nil)
         {(notification) in self.handleOnLocationReceivedNotification(notification: notification)}
+        
+        NotificationCenter.default.addObserver(forName: .onSetTrackingGroupQrCodeReceived, object: nil, queue: nil)
+        {(notification) in self.handleSetTrackingGroupQrCodeReceived(notification: notification)}
     }
     
     func handleOnLocationReceivedNotification(notification: Notification) {
@@ -27,6 +30,10 @@ class ViewController: UIViewController {
         if let location = notification.object as? NSManagedObject {
             refreshLocationEntity(locationEntity: location)
         }
+    }
+    
+    func handleSetTrackingGroupQrCodeReceived(notification: Notification) {
+        NSLog("handleSetTrackingGroupQrCodeReceived: %@", notification.debugDescription)
     }
     
     func handleDidBecomeActive(notification:Notification) {
@@ -67,11 +74,6 @@ class ViewController: UIViewController {
             //theMap.setRegion(region, animated: true)
             theMap.setRegion(theMap.regionThatFits(region), animated: true)
         }
-        
-        if let time = locationEntity.value(forKey: "time") as? Date {
-        }
-        
-        
     }
     
     var currentPosReceived : MKPointAnnotation?
@@ -81,6 +83,13 @@ class ViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "scanTrackingGroupQrSegue" {
+            guard let scannerViewController = segue.destination as? ScannerViewController else {return}
+            scannerViewController.notificationName = .onSetTrackingGroupQrCodeReceived
+        }
     }
 
 }

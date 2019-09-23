@@ -14,6 +14,7 @@
 		AFA43D20232EA63200F5529C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA43D1F232EA63200F5529C /* Assets.xcassets */; };
 		AFA43D23232EA63200F5529C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA43D21232EA63200F5529C /* LaunchScreen.storyboard */; };
 		AFE980462336386C00B22E18 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE980452336386C00B22E18 /* Notifications.swift */; };
+		AFE980492339105600B22E18 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE980482339105600B22E18 /* ScannerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		AFA43D24232EA63200F5529C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFE980452336386C00B22E18 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		AFE9804723363E5700B22E18 /* Afternoon_Ride.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Afternoon_Ride.gpx; path = ../../Downloads/Afternoon_Ride.gpx; sourceTree = "<group>"; };
+		AFE980482339105600B22E18 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				AFA43D24232EA63200F5529C /* Info.plist */,
 				AFA43D1C232EA63100F5529C /* gpxeditortracker.xcdatamodeld */,
 				AFE980452336386C00B22E18 /* Notifications.swift */,
+				AFE980482339105600B22E18 /* ScannerViewController.swift */,
 			);
 			path = gpxeditortracker;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 				AFE980462336386C00B22E18 /* Notifications.swift in Sources */,
 				AFA43D18232EA63100F5529C /* ViewController.swift in Sources */,
 				AFA43D1E232EA63100F5529C /* gpxeditortracker.xcdatamodeld in Sources */,
+				AFE980492339105600B22E18 /* ScannerViewController.swift in Sources */,
 				AFA43D16232EA63100F5529C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

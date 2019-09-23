@@ -49,5 +49,7 @@
     <string>GPXEditor Tracker can track your location in the background.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>GPXEditor Tracker can track your location.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>GPXEditor Tracker needs access to the camera in order to scan a QR code.</string>
 </dict>
 </plist>
