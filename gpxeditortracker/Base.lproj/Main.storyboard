@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bis-e2-mWe">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bis-e2-mWe">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,30 +16,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tracking group:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Otz-3V-fnh">
-                                <rect key="frame" x="20" y="44" width="120" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(not set)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVs-g3-pDH">
+                                <rect key="frame" x="20" y="98" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tracking group:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmm-oH-SoH">
+                                <rect key="frame" x="20" y="69" width="120" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(not set)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqQ-XG-KdD">
-                                <rect key="frame" x="20" y="73" width="374" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qjj-KW-fEe">
-                                <rect key="frame" x="20" y="102" width="374" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qjj-KW-fEe">
+                                <rect key="frame" x="20" y="127" width="374" height="30"/>
                                 <state key="normal" title="Scan QR code to set"/>
                                 <connections>
                                     <segue destination="A62-aE-9TI" kind="show" identifier="scanTrackingGroupQrSegue" id="lzF-By-3e2"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="trailing" secondItem="Qjj-KW-fEe" secondAttribute="trailing" id="F2A-Xw-GdS"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="leading" secondItem="Qjj-KW-fEe" secondAttribute="leading" id="Q4G-49-kRx"/>
+                            <constraint firstItem="fmm-oH-SoH" firstAttribute="top" secondItem="Li7-wx-vNK" secondAttribute="top" constant="25" id="UhN-ly-EHZ"/>
+                            <constraint firstItem="Qjj-KW-fEe" firstAttribute="top" secondItem="qVs-g3-pDH" secondAttribute="bottom" constant="8" id="c25-bL-Mpu"/>
+                            <constraint firstItem="fmm-oH-SoH" firstAttribute="leading" secondItem="tYg-x1-EmU" secondAttribute="leadingMargin" id="iCi-M3-CNT"/>
+                            <constraint firstItem="fmm-oH-SoH" firstAttribute="leading" secondItem="qVs-g3-pDH" secondAttribute="leading" id="pkV-AP-Y0l"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="top" secondItem="fmm-oH-SoH" secondAttribute="bottom" constant="8" id="swF-qs-cse"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="trailing" secondItem="tYg-x1-EmU" secondAttribute="trailingMargin" id="wh7-xF-fCr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Li7-wx-vNK"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Config" image="second" selectedImage="second" id="fiz-b5-oVE"/>
@@ -55,7 +59,7 @@
             <objects>
                 <viewController id="A62-aE-9TI" customClass="ScannerViewController" customModule="gpxeditortracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TUu-Pp-JST">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="UBt-Gz-83V"/>
