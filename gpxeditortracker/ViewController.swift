@@ -33,7 +33,23 @@ class ViewController: UIViewController {
     }
     
     func handleSetTrackingGroupQrCodeReceived(notification: Notification) {
-        NSLog("handleSetTrackingGroupQrCodeReceived: %@", notification.debugDescription)
+
+        guard let qrCodeString = notification.object as? String else {
+            NSLog("Error: QRCode data was not a string")
+            return
+        }
+        guard let qrCodeData = qrCodeString.data(using: .utf8) else {
+            NSLog("Error: QRCode string could not be converted to data: %@", qrCodeString)
+            return
+        }
+        
+        let jsonDecoder = JSONDecoder()
+        do {
+            let trackingGroupData = try jsonDecoder.decode([TrackingGroupData].self, from: qrCodeData)
+            
+        } catch {
+            NSLog("The QR code cold not be deserialized to a TrackingGroupData: %@", error.localizedDescription)
+        }
     }
     
     func handleDidBecomeActive(notification:Notification) {
