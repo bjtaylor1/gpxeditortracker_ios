@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AF57202823394A84009566AC /* TrackingGroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF57202723394A84009566AC /* TrackingGroupData.swift */; };
+		AF57202A23395573009566AC /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF57202923395573009566AC /* ConfigViewController.swift */; };
 		AFA43D16232EA63100F5529C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA43D15232EA63100F5529C /* AppDelegate.swift */; };
-		AFA43D18232EA63100F5529C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA43D17232EA63100F5529C /* ViewController.swift */; };
+		AFA43D18232EA63100F5529C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA43D17232EA63100F5529C /* MapViewController.swift */; };
 		AFA43D1B232EA63100F5529C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA43D19232EA63100F5529C /* Main.storyboard */; };
 		AFA43D1E232EA63100F5529C /* gpxeditortracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AFA43D1C232EA63100F5529C /* gpxeditortracker.xcdatamodeld */; };
 		AFA43D20232EA63200F5529C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA43D1F232EA63200F5529C /* Assets.xcassets */; };
@@ -20,9 +21,10 @@
 
 /* Begin PBXFileReference section */
 		AF57202723394A84009566AC /* TrackingGroupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingGroupData.swift; sourceTree = "<group>"; };
+		AF57202923395573009566AC /* ConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
 		AFA43D12232EA63100F5529C /* gpxeditortracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gpxeditortracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA43D15232EA63100F5529C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AFA43D17232EA63100F5529C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AFA43D17232EA63100F5529C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AFA43D1A232EA63100F5529C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AFA43D1D232EA63100F5529C /* gpxeditortracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gpxeditortracker.xcdatamodel; sourceTree = "<group>"; };
 		AFA43D1F232EA63200F5529C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,7 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				AFA43D15232EA63100F5529C /* AppDelegate.swift */,
-				AFA43D17232EA63100F5529C /* ViewController.swift */,
+				AFA43D17232EA63100F5529C /* MapViewController.swift */,
 				AFA43D19232EA63100F5529C /* Main.storyboard */,
 				AFA43D1F232EA63200F5529C /* Assets.xcassets */,
 				AFA43D21232EA63200F5529C /* LaunchScreen.storyboard */,
@@ -74,6 +76,7 @@
 				AFE980452336386C00B22E18 /* Notifications.swift */,
 				AFE980482339105600B22E18 /* ScannerViewController.swift */,
 				AF57202723394A84009566AC /* TrackingGroupData.swift */,
+				AF57202923395573009566AC /* ConfigViewController.swift */,
 			);
 			path = gpxeditortracker;
 			sourceTree = "<group>";
@@ -156,8 +159,9 @@
 			files = (
 				AF57202823394A84009566AC /* TrackingGroupData.swift in Sources */,
 				AFE980462336386C00B22E18 /* Notifications.swift in Sources */,
-				AFA43D18232EA63100F5529C /* ViewController.swift in Sources */,
+				AFA43D18232EA63100F5529C /* MapViewController.swift in Sources */,
 				AFA43D1E232EA63100F5529C /* gpxeditortracker.xcdatamodeld in Sources */,
+				AF57202A23395573009566AC /* ConfigViewController.swift in Sources */,
 				AFE980492339105600B22E18 /* ScannerViewController.swift in Sources */,
 				AFA43D16232EA63100F5529C /* AppDelegate.swift in Sources */,
 			);

@@ -86,7 +86,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func found(code: String) {
-        print(code)
+        guard let n = notificationName else {
+            return
+        }
+        NotificationCenter.default.post(name: n, object: code)
+        
     }
     
     override var prefersStatusBarHidden: Bool {

@@ -9,10 +9,9 @@
 import UIKit
 import CoreData
 import MapKit
-class ViewController: UIViewController {
+class MapViewController: UIViewController {
 
-    
-    override func viewDidLoad() {
+        override func viewDidLoad() {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil)
@@ -20,35 +19,12 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: .onLocationReceived, object: nil, queue: nil)
         {(notification) in self.handleOnLocationReceivedNotification(notification: notification)}
-        
-        NotificationCenter.default.addObserver(forName: .onSetTrackingGroupQrCodeReceived, object: nil, queue: nil)
-        {(notification) in self.handleSetTrackingGroupQrCodeReceived(notification: notification)}
     }
     
     func handleOnLocationReceivedNotification(notification: Notification) {
         NSLog("handleOnLocationReceivedNotification: %@", notification.debugDescription)
         if let location = notification.object as? NSManagedObject {
             refreshLocationEntity(locationEntity: location)
-        }
-    }
-    
-    func handleSetTrackingGroupQrCodeReceived(notification: Notification) {
-
-        guard let qrCodeString = notification.object as? String else {
-            NSLog("Error: QRCode data was not a string")
-            return
-        }
-        guard let qrCodeData = qrCodeString.data(using: .utf8) else {
-            NSLog("Error: QRCode string could not be converted to data: %@", qrCodeString)
-            return
-        }
-        
-        let jsonDecoder = JSONDecoder()
-        do {
-            let trackingGroupData = try jsonDecoder.decode([TrackingGroupData].self, from: qrCodeData)
-            
-        } catch {
-            NSLog("The QR code cold not be deserialized to a TrackingGroupData: %@", error.localizedDescription)
         }
     }
     
@@ -74,21 +50,25 @@ class ViewController: UIViewController {
     }
     
     func refreshLocationEntity(locationEntity : NSManagedObject) {
-        if  let latitude = locationEntity.value(forKey: "latitude") as? Double,
-            let longitude = locationEntity.value(forKey: "longitude") as? Double {
-            if(currentPosReceived == nil) {
-                currentPosReceived = MKPointAnnotation()
-                theMap.addAnnotation(currentPosReceived!)
+        if viewIfLoaded?.window != nil {
+            // viewController is visible
+        
+            if  let latitude = locationEntity.value(forKey: "latitude") as? Double,
+                let longitude = locationEntity.value(forKey: "longitude") as? Double {
+                if(currentPosReceived == nil) {
+                    currentPosReceived = MKPointAnnotation()
+                    theMap.addAnnotation(currentPosReceived!)
+                }
+                currentPosReceived?.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                
+                let region = MKCoordinateRegion(
+                    center: currentPosReceived!.coordinate,
+                    latitudinalMeters: CLLocationDistance(exactly: 3000)!,
+                    longitudinalMeters: CLLocationDistance(exactly: 3000)!)
+                
+                //theMap.setRegion(region, animated: true)
+                theMap.setRegion(theMap.regionThatFits(region), animated: true)
             }
-            currentPosReceived?.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            
-            let region = MKCoordinateRegion(
-                center: currentPosReceived!.coordinate,
-                latitudinalMeters: CLLocationDistance(exactly: 3000)!,
-                longitudinalMeters: CLLocationDistance(exactly: 3000)!)
-            
-            //theMap.setRegion(region, animated: true)
-            theMap.setRegion(theMap.regionThatFits(region), animated: true)
         }
     }
     

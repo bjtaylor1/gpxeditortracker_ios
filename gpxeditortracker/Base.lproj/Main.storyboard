@@ -11,15 +11,15 @@
         <!--Config-->
         <scene sceneID="z7T-e7-cGF">
             <objects>
-                <viewController id="9SL-5g-T0O" sceneMemberID="viewController">
+                <viewController id="9SL-5g-T0O" customClass="ConfigViewController" customModule="gpxeditortracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tYg-x1-EmU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(not set)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVs-g3-pDH">
-                                <rect key="frame" x="20" y="98" width="374" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(not set)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVs-g3-pDH">
+                                <rect key="frame" x="20" y="98" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tracking group:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmm-oH-SoH">
@@ -29,26 +29,42 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qjj-KW-fEe">
-                                <rect key="frame" x="20" y="127" width="374" height="30"/>
+                                <rect key="frame" x="20" y="126.5" width="374" height="30"/>
                                 <state key="normal" title="Scan QR code to set"/>
                                 <connections>
                                     <segue destination="A62-aE-9TI" kind="show" identifier="scanTrackingGroupQrSegue" id="lzF-By-3e2"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(not set)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOz-1F-hiR">
+                                <rect key="frame" x="20" y="98" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="qVs-g3-pDH" firstAttribute="trailing" secondItem="Qjj-KW-fEe" secondAttribute="trailing" id="F2A-Xw-GdS"/>
-                            <constraint firstItem="qVs-g3-pDH" firstAttribute="leading" secondItem="Qjj-KW-fEe" secondAttribute="leading" id="Q4G-49-kRx"/>
-                            <constraint firstItem="fmm-oH-SoH" firstAttribute="top" secondItem="Li7-wx-vNK" secondAttribute="top" constant="25" id="UhN-ly-EHZ"/>
-                            <constraint firstItem="Qjj-KW-fEe" firstAttribute="top" secondItem="qVs-g3-pDH" secondAttribute="bottom" constant="8" id="c25-bL-Mpu"/>
-                            <constraint firstItem="fmm-oH-SoH" firstAttribute="leading" secondItem="tYg-x1-EmU" secondAttribute="leadingMargin" id="iCi-M3-CNT"/>
-                            <constraint firstItem="fmm-oH-SoH" firstAttribute="leading" secondItem="qVs-g3-pDH" secondAttribute="leading" id="pkV-AP-Y0l"/>
-                            <constraint firstItem="qVs-g3-pDH" firstAttribute="top" secondItem="fmm-oH-SoH" secondAttribute="bottom" constant="8" id="swF-qs-cse"/>
-                            <constraint firstItem="qVs-g3-pDH" firstAttribute="trailing" secondItem="tYg-x1-EmU" secondAttribute="trailingMargin" id="wh7-xF-fCr"/>
+                            <constraint firstItem="fmm-oH-SoH" firstAttribute="top" secondItem="Li7-wx-vNK" secondAttribute="top" constant="25" id="0LW-cf-eYc"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="baseline" secondItem="yOz-1F-hiR" secondAttribute="firstBaseline" id="DMd-1Y-GA1"/>
+                            <constraint firstItem="Qjj-KW-fEe" firstAttribute="top" secondItem="qVs-g3-pDH" secondAttribute="bottom" constant="8" id="Dg8-xV-adx"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="trailing" secondItem="tYg-x1-EmU" secondAttribute="trailingMargin" id="Roh-Fw-F4v"/>
+                            <constraint firstItem="yOz-1F-hiR" firstAttribute="top" secondItem="fmm-oH-SoH" secondAttribute="bottom" constant="8" id="RrW-10-NBJ"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="trailing" secondItem="Qjj-KW-fEe" secondAttribute="trailing" id="SLv-L1-BSb"/>
+                            <constraint firstItem="fmm-oH-SoH" firstAttribute="leading" secondItem="tYg-x1-EmU" secondAttribute="leadingMargin" id="U8b-ap-0UZ"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="centerY" secondItem="yOz-1F-hiR" secondAttribute="centerY" id="V41-be-zjA"/>
+                            <constraint firstItem="yOz-1F-hiR" firstAttribute="leading" secondItem="Qjj-KW-fEe" secondAttribute="leading" id="ZdH-Nt-eKQ"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="firstBaseline" secondItem="yOz-1F-hiR" secondAttribute="firstBaseline" id="cod-0r-xDu"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="leading" secondItem="yOz-1F-hiR" secondAttribute="leading" id="qvW-DG-tLO"/>
+                            <constraint firstItem="qVs-g3-pDH" firstAttribute="trailing" secondItem="yOz-1F-hiR" secondAttribute="trailing" id="rgG-3q-GT3"/>
+                            <constraint firstItem="fmm-oH-SoH" firstAttribute="leading" secondItem="qVs-g3-pDH" secondAttribute="leading" id="yd6-bP-AUv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Li7-wx-vNK"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Config" image="second" selectedImage="second" id="fiz-b5-oVE"/>
+                    <connections>
+                        <outlet property="trackingGroupLabel" destination="qVs-g3-pDH" id="haa-7d-uZi"/>
+                        <outlet property="trackingGroupSetButton" destination="Qjj-KW-fEe" id="cS2-Az-g5S"/>
+                        <outlet property="trackingGroupUnsetLabel" destination="yOz-1F-hiR" id="kIW-c8-Ejt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xwx-48-f2f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -90,7 +106,7 @@
         <!--Map-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="gpxeditortracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="gpxeditortracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
