@@ -93,8 +93,11 @@ class ConfigViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "scanTrackingGroupQrSegue" {
-            guard let scannerViewController = segue.destination as? ScannerViewController else {return}
-            scannerViewController.notificationName = .onSetTrackingGroupQrCodeReceived
+            guard let scannerContainerViewController = segue.destination as? ScannerContainerViewController else {
+                NSLog("WARNING - expected destination to be ScannerContainerViewController")
+                return
+            }
+            scannerContainerViewController.notificationName = .onSetTrackingGroupQrCodeReceived
         }
     }
 }

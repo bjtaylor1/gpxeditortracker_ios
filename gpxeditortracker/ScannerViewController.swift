@@ -6,6 +6,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var previewLayer: AVCaptureVideoPreviewLayer!
     var notificationName: Notification.Name?
     
+    @IBAction func cancelClick(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

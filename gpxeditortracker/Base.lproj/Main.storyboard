@@ -32,7 +32,7 @@
                                 <rect key="frame" x="20" y="126.5" width="374" height="30"/>
                                 <state key="normal" title="Scan QR code to set"/>
                                 <connections>
-                                    <segue destination="A62-aE-9TI" kind="show" identifier="scanTrackingGroupQrSegue" id="lzF-By-3e2"/>
+                                    <segue destination="A62-aE-9TI" kind="showDetail" identifier="scanTrackingGroupQrSegue" id="lzF-By-3e2"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(not set)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOz-1F-hiR">
@@ -101,42 +101,68 @@
             </objects>
             <point key="canvasLocation" x="-1197.1014492753625" y="-820.3125"/>
         </scene>
-        <!--Scanner View Controller-->
+        <!--Scanner Container View Controller-->
         <scene sceneID="1TS-ga-EJJ">
             <objects>
-                <viewController id="A62-aE-9TI" customClass="ScannerViewController" customModule="gpxeditortracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="A62-aE-9TI" customClass="ScannerContainerViewController" customModule="gpxeditortracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TUu-Pp-JST">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6KY-YD-rJd">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <connections>
+                                    <segue destination="aJe-Lh-TQX" kind="embed" identifier="scannerViewContainerEmbedSegue" id="79f-By-WJm"/>
+                                </connections>
+                            </containerView>
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynn-Lh-tsP">
+                                <rect key="frame" x="20" y="69" width="90" height="30"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="cancelClick:" destination="A62-aE-9TI" eventType="touchUpInside" id="MQu-6e-ZcO"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6KY-YD-rJd" firstAttribute="centerX" secondItem="TUu-Pp-JST" secondAttribute="centerX" id="0Kg-Bg-6Cp"/>
+                            <constraint firstItem="6KY-YD-rJd" firstAttribute="bottom" secondItem="UBt-Gz-83V" secondAttribute="bottom" id="0TT-YF-Gyw"/>
+                            <constraint firstItem="ynn-Lh-tsP" firstAttribute="top" secondItem="UBt-Gz-83V" secondAttribute="top" constant="25" id="8wQ-qK-dss"/>
+                            <constraint firstItem="6KY-YD-rJd" firstAttribute="leading" secondItem="UBt-Gz-83V" secondAttribute="leading" id="9Co-Mn-wJi"/>
+                            <constraint firstItem="ynn-Lh-tsP" firstAttribute="leading" secondItem="TUu-Pp-JST" secondAttribute="leadingMargin" id="Xg8-1t-phD"/>
+                            <constraint firstItem="6KY-YD-rJd" firstAttribute="top" secondItem="UBt-Gz-83V" secondAttribute="top" id="ecr-g7-Pfl"/>
+                            <constraint firstItem="UBt-Gz-83V" firstAttribute="trailing" secondItem="ynn-Lh-tsP" secondAttribute="trailing" constant="304" id="jCY-Z4-sUc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="UBt-Gz-83V"/>
                     </view>
                     <navigationItem key="navigationItem" id="we1-7U-lAV"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="ynn-Lh-tsP" id="R44-hQ-yon"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GuK-72-Suj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="445" y="-820"/>
+            <point key="canvasLocation" x="621.73913043478262" y="-1195.3125"/>
         </scene>
         <!--Map-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="gpxeditortracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="MapViewController" customModule="gpxeditortracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="e03-QY-0MN">
-                                <rect key="frame" x="0.0" y="-54" width="414" height="896"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="896" id="zfK-Z8-pwq"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="e03-QY-0MN" secondAttribute="trailing" id="4Kj-XW-3On"/>
-                            <constraint firstItem="e03-QY-0MN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TSD-hc-b6m"/>
-                            <constraint firstAttribute="bottom" secondItem="e03-QY-0MN" secondAttribute="bottom" id="cSa-vC-ATg"/>
+                            <constraint firstItem="e03-QY-0MN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fzx-7p-3mE"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="e03-QY-0MN" secondAttribute="bottom" constant="-34" id="m9Q-pF-2sw"/>
+                            <constraint firstItem="e03-QY-0MN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="oW4-Ui-jvS"/>
+                            <constraint firstItem="e03-QY-0MN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="w6Q-DT-YGh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -147,7 +173,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="445" y="-46"/>
+            <point key="canvasLocation" x="444.92753623188412" y="-46.205357142857139"/>
+        </scene>
+        <!--Scanner View Controller-->
+        <scene sceneID="6Eo-qo-cjQ">
+            <objects>
+                <viewController id="aJe-Lh-TQX" customClass="ScannerViewController" customModule="gpxeditortracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Hy-M2-U0C">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="61X-wj-ru1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2028" y="-1195"/>
         </scene>
     </scenes>
     <resources>
