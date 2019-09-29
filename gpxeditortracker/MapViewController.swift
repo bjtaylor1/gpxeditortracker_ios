@@ -17,6 +17,8 @@ class MapViewController: UIViewController {
                 
         NotificationCenter.default.addObserver(forName: .onLocationReceived, object: nil, queue: nil)
         {(notification) in self.handleOnLocationReceivedNotification(notification: notification)}
+        
+        LocationManager.Instance.start()
     }
     
     func handleOnLocationReceivedNotification(notification: Notification) {

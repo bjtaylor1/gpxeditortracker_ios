@@ -13,28 +13,27 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
     static let Instance = LocationManager()
     let locationManager = CLLocationManager()
     var lastLocationReceived: Date? = nil
+    var trackingGroupData: TrackingGroupData? = nil
+    var name: String? = nil
+    
     override init() {
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss.fff"
     }
     
     #if DEBUG
-    let minSecondsBetweenUpdates = TimeInterval(integerLiteral: 10)
+    let minSecondsBetweenUpdates = TimeInterval(integerLiteral: 2)
     #else
     let minSecondsBetweenUpdates = TimeInterval(integerLiteral: 600)
     #endif
     
-    func requestAuthorization() {
-        NSLog("Calling requestWhenInUseAuthorization...")
+    func start() {
+        NSLog("starting LocationManager...")
         
         locationManager.distanceFilter = 100
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.requestWhenInUseAuthorization()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        NotificationCenter.default.post(name: .onLocationAuthorized, object: status)
         locationManager.startUpdatingLocation()
     }
     
@@ -44,7 +43,6 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         guard let lastLocationReceivedValue = lastLocationReceived else {return true}
         let earliestTimeToNotify = lastLocationReceivedValue.addingTimeInterval(minSecondsBetweenUpdates)
         let shouldNotify: (Bool) = (time >= earliestTimeToNotify)
-        NSLog("shouldNotify at %@ = %i (last was %@)", dateFormatter.string(from: time), shouldNotify, dateFormatter.string(from: lastLocationReceivedValue))
         return shouldNotify;
     }
     

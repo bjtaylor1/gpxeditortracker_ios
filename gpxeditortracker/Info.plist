@@ -20,8 +20,13 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>GPXEditor Tracker needs access to the camera in order to scan a QR code.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>GPXEditor Tracker needs access to your location.</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>location</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
@@ -45,9 +50,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>GPXEditor Tracker needs access to your location.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>GPXEditor Tracker needs access to the camera in order to scan a QR code.</string>
 </dict>
 </plist>

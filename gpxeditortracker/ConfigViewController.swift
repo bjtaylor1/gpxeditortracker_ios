@@ -24,6 +24,50 @@ class ConfigViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: .onLocationAuthorized, object: nil, queue: nil)
         { (notification) in self.onLocationAuthorizedReceived(notification: notification)}
+        
+        loadSettings()
+    }
+    
+    @IBAction func nameEditingChange(_ sender: Any) {
+        NSLog("nameEditingChange: %@", nameTextBox?.text ?? "(nil)")
+        LocationManager.Instance.name = nameTextBox.text
+        UserDefaults.standard.set(nameTextBox?.text, forKey: "trackingName")
+    }
+    
+    func loadSettings() {
+        if let trackingGroupJson = UserDefaults.standard.object(forKey: "trackingGroupJson") as? String {
+            setTrackingGroupData(trackingGroupJson: trackingGroupJson, save: false)
+        }
+        if let name = UserDefaults.standard.string(forKey: "trackingName") {
+            LocationManager.Instance.name = name
+            nameTextBox.text = name
+        }
+    }
+    
+    func saveTrackingGroupData(trackingGroupJson: String) {
+        UserDefaults.standard.set(trackingGroupJson, forKey: "trackingGroupJson")
+    }
+    
+    func setTrackingGroupData(trackingGroupJson: String, save: Bool) {
+        do {
+            let jsonDecoder = JSONDecoder()
+            guard let data = trackingGroupJson.data(using: .utf8) else {
+                NSLog("Error: trackingGroupJson could not be converted to data: %@", trackingGroupJson)
+                return
+            }
+            let trackingGroupData = try jsonDecoder.decode(TrackingGroupData.self, from: data)
+            if save {
+                UserDefaults.standard.set(trackingGroupJson, forKey: "trackingGroupJson")
+            }
+            LocationManager.Instance.trackingGroupData = trackingGroupData
+            trackingGroupUnsetLabel?.isHidden = true
+            trackingGroupLabel?.isHidden = false
+            trackingGroupLabel?.text = trackingGroupData.Name
+            trackingGroupSetButton?.setTitle("Change", for: .normal)
+        } catch {
+            NSLog("The QR code cold not be deserialized to a TrackingGroupData: %@", error.localizedDescription)
+        }
+        
     }
     
     func onLocationAuthorizedReceived(notification: Notification) {
@@ -43,22 +87,8 @@ class ConfigViewController: UIViewController {
             NSLog("Error: QRCode data was not a string")
             return
         }
-        guard let qrCodeData = qrCodeString.data(using: .utf8) else {
-            NSLog("Error: QRCode string could not be converted to data: %@", qrCodeString)
-            return
-        }
         
-        let jsonDecoder = JSONDecoder()
-        do {
-            let trackingGroupData = try jsonDecoder.decode(TrackingGroupData.self, from: qrCodeData)
-            trackingGroupUnsetLabel?.isHidden = true
-            trackingGroupLabel?.isHidden = false
-            trackingGroupLabel?.text = trackingGroupData.Name
-            trackingGroupSetButton?.setTitle("Change", for: .normal)
-
-        } catch {
-            NSLog("The QR code cold not be deserialized to a TrackingGroupData: %@", error.localizedDescription)
-        }
+        setTrackingGroupData(trackingGroupJson: qrCodeString, save: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,19 +97,5 @@ class ConfigViewController: UIViewController {
             scannerViewController.notificationName = .onSetTrackingGroupQrCodeReceived
         }
     }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "startTrackingSegue" {
-            readyToLaunchMap = true
-            LocationManager.Instance.requestAuthorization()
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    
-    
-
 }
 
