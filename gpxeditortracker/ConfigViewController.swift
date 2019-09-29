@@ -65,7 +65,13 @@ class ConfigViewController: UIViewController {
             trackingGroupLabel?.text = trackingGroupData.Name
             trackingGroupSetButton?.setTitle("Change", for: .normal)
         } catch {
-            NSLog("The QR code cold not be deserialized to a TrackingGroupData: %@", error.localizedDescription)
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Invalid QR code", message: "The QR code scanned is not a valid GPXEditor tracking group.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    NSLog("You clicked ok")
+                }))
+                self.present(alert, animated: true) {() in NSLog("The alert completed")}
+            }
         }
         
     }
