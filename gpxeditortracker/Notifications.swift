@@ -11,4 +11,5 @@ import Foundation
 extension Notification.Name {
     static let onLocationReceived = Notification.Name("onLocationReceived")
     static let onSetTrackingGroupQrCodeReceived = Notification.Name("onSetTrackingGroupQrCodeReceived")
+    static let onLocationAuthorized = Notification.Name("onLocationAuthorized")
 }

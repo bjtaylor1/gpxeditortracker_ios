@@ -13,12 +13,28 @@ class ConfigViewController: UIViewController {
     @IBOutlet weak var trackingGroupUnsetLabel: UILabel!
     @IBOutlet weak var trackingGroupLabel: UILabel!
     @IBOutlet weak var trackingGroupSetButton: UIButton!
+    @IBOutlet weak var nameTextBox: UITextField!
+    var readyToLaunchMap: Bool = false
     
-        override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(forName: .onSetTrackingGroupQrCodeReceived, object: nil, queue: nil)
         {(notification) in self.handleSetTrackingGroupQrCodeReceived(notification: notification)}
+        
+        NotificationCenter.default.addObserver(forName: .onLocationAuthorized, object: nil, queue: nil)
+        { (notification) in self.onLocationAuthorizedReceived(notification: notification)}
+    }
+    
+    func onLocationAuthorizedReceived(notification: Notification) {
+        guard let authStatus = notification.object as? CLAuthorizationStatus else {return}
+        NSLog("onLocationAuthorizedReceived, readyToLaunchMap = %i", readyToLaunchMap)
+        if authStatus == .authorizedAlways || authStatus == .authorizedWhenInUse {
+            if readyToLaunchMap {
+                performSegue(withIdentifier: "startTrackingSegue", sender: self)
+            }
+        }
+        readyToLaunchMap = false;
     }
     
     func handleSetTrackingGroupQrCodeReceived(notification: Notification) {
@@ -51,6 +67,19 @@ class ConfigViewController: UIViewController {
             scannerViewController.notificationName = .onSetTrackingGroupQrCodeReceived
         }
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "startTrackingSegue" {
+            readyToLaunchMap = true
+            LocationManager.Instance.requestAuthorization()
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    
 
 }
 
