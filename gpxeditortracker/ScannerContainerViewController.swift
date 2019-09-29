@@ -10,7 +10,15 @@ import Foundation
 import UIKit
 class ScannerContainerViewController : UIViewController {
     var notificationName: Notification.Name?
-    
+    override func viewDidLoad() {
+        var buttonFrame = cancelButton.frame
+        buttonFrame.size = CGSize(width: 120, height: 50    )
+        cancelButton.frame = buttonFrame
+        cancelButton.alpha = 0.8
+        cancelButton.backgroundColor = .white
+        cancelButton.isOpaque = true
+        cancelButton.layer.cornerRadius = 6
+    }
     @IBOutlet weak var cancelButton: UIButton!
     @IBAction func cancelClick(_ sender: Any) {
         dismiss(animated: true)

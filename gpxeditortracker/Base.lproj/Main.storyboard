@@ -110,35 +110,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6KY-YD-rJd">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <connections>
                                     <segue destination="aJe-Lh-TQX" kind="embed" identifier="scannerViewContainerEmbedSegue" id="79f-By-WJm"/>
                                 </connections>
                             </containerView>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynn-Lh-tsP">
-                                <rect key="frame" x="20" y="69" width="90" height="30"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYk-wK-OwU">
+                                <rect key="frame" x="19" y="44" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="cancelClick:" destination="A62-aE-9TI" eventType="touchUpInside" id="MQu-6e-ZcO"/>
+                                    <action selector="cancelClick:" destination="A62-aE-9TI" eventType="touchUpInside" id="u8I-nm-m9f"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6KY-YD-rJd" firstAttribute="centerX" secondItem="TUu-Pp-JST" secondAttribute="centerX" id="0Kg-Bg-6Cp"/>
-                            <constraint firstItem="6KY-YD-rJd" firstAttribute="bottom" secondItem="UBt-Gz-83V" secondAttribute="bottom" id="0TT-YF-Gyw"/>
-                            <constraint firstItem="ynn-Lh-tsP" firstAttribute="top" secondItem="UBt-Gz-83V" secondAttribute="top" constant="25" id="8wQ-qK-dss"/>
-                            <constraint firstItem="6KY-YD-rJd" firstAttribute="leading" secondItem="UBt-Gz-83V" secondAttribute="leading" id="9Co-Mn-wJi"/>
-                            <constraint firstItem="ynn-Lh-tsP" firstAttribute="leading" secondItem="TUu-Pp-JST" secondAttribute="leadingMargin" id="Xg8-1t-phD"/>
-                            <constraint firstItem="6KY-YD-rJd" firstAttribute="top" secondItem="UBt-Gz-83V" secondAttribute="top" id="ecr-g7-Pfl"/>
-                            <constraint firstItem="UBt-Gz-83V" firstAttribute="trailing" secondItem="ynn-Lh-tsP" secondAttribute="trailing" constant="304" id="jCY-Z4-sUc"/>
+                            <constraint firstItem="6KY-YD-rJd" firstAttribute="bottom" secondItem="UBt-Gz-83V" secondAttribute="bottom" id="IlW-Sd-wk3"/>
+                            <constraint firstItem="6KY-YD-rJd" firstAttribute="top" secondItem="UBt-Gz-83V" secondAttribute="top" constant="-44" id="pSQ-EF-ScI"/>
+                            <constraint firstItem="6KY-YD-rJd" firstAttribute="centerX" secondItem="TUu-Pp-JST" secondAttribute="centerX" id="qzu-TN-aFj"/>
+                            <constraint firstItem="6KY-YD-rJd" firstAttribute="leading" secondItem="UBt-Gz-83V" secondAttribute="leading" id="uox-5r-9Ol"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UBt-Gz-83V"/>
                     </view>
                     <navigationItem key="navigationItem" id="we1-7U-lAV"/>
                     <connections>
-                        <outlet property="cancelButton" destination="ynn-Lh-tsP" id="R44-hQ-yon"/>
+                        <outlet property="cancelButton" destination="eYk-wK-OwU" id="mhd-u1-ooY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GuK-72-Suj" userLabel="First Responder" sceneMemberID="firstResponder"/>
