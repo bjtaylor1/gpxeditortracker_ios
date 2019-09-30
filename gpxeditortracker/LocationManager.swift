@@ -80,10 +80,7 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
             NSLog("Creating the json encoder")
             let jsonEncoder = JSONEncoder()
             jsonEncoder.dateEncodingStrategy = .iso8601
-            NSLog("Created the json encoder")
             let jsonData = try jsonEncoder.encode(updateLocationData)
-            let jsonString = String(data: jsonData, encoding: .utf8)!
-            NSLog("Sending json:\n%@", jsonString)
             let url = URL(string: "https://gpxeditor.azurewebsites.net/api/tracking")!
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
