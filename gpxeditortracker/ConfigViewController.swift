@@ -19,11 +19,11 @@ class ConfigViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(forName: .onSetTrackingGroupQrCodeReceived, object: nil, queue: nil)
-        {(notification) in self.handleSetTrackingGroupQrCodeReceived(notification: notification)}
+        NotificationCenter.default.addObserver(forName: .onSetTrackingGroupQrCodeReceived, object: nil, queue: nil, using:
+        {(notification) in self.handleSetTrackingGroupQrCodeReceived(notification: notification)})
         
-        NotificationCenter.default.addObserver(forName: .onLocationAuthorized, object: nil, queue: nil)
-        { (notification) in self.onLocationAuthorizedReceived(notification: notification)}
+        NotificationCenter.default.addObserver(forName: .onLocationAuthorized, object: nil, queue: nil, using:
+        { (notification) in self.onLocationAuthorizedReceived(notification: notification)})
         
         loadSettings()
     }
@@ -66,14 +66,16 @@ class ConfigViewController: UIViewController {
             trackingGroupSetButton?.setTitle("Change", for: .normal)
         } catch {
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Invalid QR code", message: "The QR code scanned is not a valid GPXEditor tracking group.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    NSLog("You clicked ok")
-                }))
-                self.present(alert, animated: true) {() in NSLog("The alert completed")}
+                self.showError(title: "Invalid QR code", message: "The QR code scanned is not a valid GPXEditor tracking group.")
             }
         }
-        
+    }
+    
+    func showError(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message , preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+
     }
     
     func onLocationAuthorizedReceived(notification: Notification) {
@@ -106,5 +108,20 @@ class ConfigViewController: UIViewController {
             scannerContainerViewController.notificationName = .onSetTrackingGroupQrCodeReceived
         }
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "startTrackingSegue" {
+            if LocationManager.Instance.trackingGroupData == nil {
+                showError(title: "Tracking group not set", message: "Please set a tracking group by clicking the button above and then scanning the tracking group's QR code on the GPXEditor site.")
+                return false
+            }
+            else if LocationManager.Instance.name == nil || LocationManager.Instance.name?.count ?? 0 < 3 {
+                showError(title: "Name not set", message: "Please enter a name of at least 3 characters.")
+                return false
+            }
+        }
+        return true
+    }
+    
 }
 
