@@ -12,6 +12,16 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet weak var theMap: MKMapView!
+    @IBAction func stopClicked(_ sender: Any) {
+        let alert = UIAlertController(title: "Stop tracking?", message: "Do you want to stop tracking?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler:
+            {(uiAlertAction) in
+                LocationManager.Instance.stop()
+                self.dismiss(animated: true)
+            }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel))
+        self.present(alert, animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -32,6 +42,7 @@ class MapViewController: UIViewController {
         if viewIfLoaded?.window != nil {
             // viewController is visible
             
+            NSLog("Received location: %@", location.description)
             if(currentPosReceived == nil) {
                 currentPosReceived = MKPointAnnotation()
                 theMap.addAnnotation(currentPosReceived!)

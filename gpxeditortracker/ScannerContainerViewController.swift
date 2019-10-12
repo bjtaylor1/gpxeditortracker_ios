@@ -11,6 +11,7 @@ import UIKit
 class ScannerContainerViewController : UIViewController {
     var notificationName: Notification.Name?
     override func viewDidLoad() {
+        /*
         var buttonFrame = cancelButton.frame
         buttonFrame.size = CGSize(width: 120, height: 50    )
         cancelButton.frame = buttonFrame
@@ -18,6 +19,7 @@ class ScannerContainerViewController : UIViewController {
         cancelButton.backgroundColor = .white
         cancelButton.isOpaque = true
         cancelButton.layer.cornerRadius = 6
+ */
     }
     @IBOutlet weak var cancelButton: UIButton!
     @IBAction func cancelClick(_ sender: Any) {

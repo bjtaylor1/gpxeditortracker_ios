@@ -44,23 +44,36 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     
+    func stop() {
+        NSLog("stopping LocationManager")
+        locationManager.stopUpdatingLocation()
+        lastLocationReceived = nil
+    }
+    
     let dateFormatter = DateFormatter()
     func shouldNotifyLocationReceivedAt(time: Date) -> Bool {
         
-        guard let lastLocationReceivedValue = lastLocationReceived else {return true}
+        guard let lastLocationReceivedValue = lastLocationReceived else {
+            NSLog("lastLocationReceived is nil - returning true")
+            return true
+        }
         let earliestTimeToNotify = lastLocationReceivedValue.addingTimeInterval(minSecondsBetweenUpdates)
         let shouldNotify: (Bool) = (time >= earliestTimeToNotify)
+        NSLog("time = %@, earliestTimeToNotify = %@, shouldNotify = %i", time.description, earliestTimeToNotify.description, shouldNotify)
         return shouldNotify;
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let lastLocation = locations.last {
-            if lastLocationReceived == nil || shouldNotifyLocationReceivedAt(time: lastLocation.timestamp) {
-                NSLog("Received location: %.5f, %.5f", lastLocation.coordinate.latitude, lastLocation.coordinate.longitude)
-                NotificationCenter.default.post(name: .onLocationReceived, object: lastLocation)
-                uploadLocation(location: lastLocation)
-                lastLocationReceived = lastLocation.timestamp
-            }
+//            if lastLocation.horizontalAccuracy < 1000 {
+                let shouldUpdate = shouldNotifyLocationReceivedAt(time: lastLocation.timestamp)
+            NSLog("Received location: %.5f, %.5f, %.5f, shouldUpdate = %i, thread = %@", lastLocation.coordinate.latitude, lastLocation.coordinate.longitude, lastLocation.horizontalAccuracy, shouldUpdate, Thread.current.description)
+                if shouldUpdate {
+                    NotificationCenter.default.post(name: .onLocationReceived, object: lastLocation)
+                    uploadLocation(location: lastLocation)
+                    lastLocationReceived = lastLocation.timestamp
+                }
+//            }
         }
     }
     

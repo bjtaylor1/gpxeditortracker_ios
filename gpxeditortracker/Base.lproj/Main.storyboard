@@ -115,10 +115,9 @@
                                     <segue destination="aJe-Lh-TQX" kind="embed" identifier="scannerViewContainerEmbedSegue" id="79f-By-WJm"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYk-wK-OwU">
-                                <rect key="frame" x="19" y="44" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYk-wK-OwU">
+                                <rect key="frame" x="344" y="44" width="50" height="50"/>
+                                <state key="normal" image="GPXEditorCrossIcon"/>
                                 <connections>
                                     <action selector="cancelClick:" destination="A62-aE-9TI" eventType="touchUpInside" id="u8I-nm-m9f"/>
                                 </connections>
@@ -127,6 +126,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6KY-YD-rJd" firstAttribute="bottom" secondItem="UBt-Gz-83V" secondAttribute="bottom" id="IlW-Sd-wk3"/>
+                            <constraint firstItem="eYk-wK-OwU" firstAttribute="trailing" secondItem="TUu-Pp-JST" secondAttribute="trailingMargin" id="Szn-sk-HwL"/>
+                            <constraint firstItem="eYk-wK-OwU" firstAttribute="top" secondItem="UBt-Gz-83V" secondAttribute="top" id="VT9-BJ-FPu"/>
                             <constraint firstItem="6KY-YD-rJd" firstAttribute="top" secondItem="UBt-Gz-83V" secondAttribute="top" constant="-44" id="pSQ-EF-ScI"/>
                             <constraint firstItem="6KY-YD-rJd" firstAttribute="centerX" secondItem="TUu-Pp-JST" secondAttribute="centerX" id="qzu-TN-aFj"/>
                             <constraint firstItem="6KY-YD-rJd" firstAttribute="leading" secondItem="UBt-Gz-83V" secondAttribute="leading" id="uox-5r-9Ol"/>
@@ -153,9 +154,18 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="e03-QY-0MN">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n1K-ro-aXX">
+                                <rect key="frame" x="20" y="44" width="50" height="50"/>
+                                <state key="normal" image="GPXEditorStopIcon"/>
+                                <connections>
+                                    <action selector="stopClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PFF-md-cuQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="n1K-ro-aXX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="3ur-Yx-56i"/>
+                            <constraint firstItem="n1K-ro-aXX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="LQf-Fa-ogO"/>
                             <constraint firstItem="e03-QY-0MN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fzx-7p-3mE"/>
                             <constraint firstAttribute="bottomMargin" secondItem="e03-QY-0MN" secondAttribute="bottom" constant="-34" id="m9Q-pF-2sw"/>
                             <constraint firstItem="e03-QY-0MN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-44" id="oW4-Ui-jvS"/>
@@ -180,6 +190,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="sUT-Jl-8yo"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="61X-wj-ru1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -188,6 +199,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="GPXEditorCrossIcon" width="50" height="50"/>
+        <image name="GPXEditorStopIcon" width="50" height="50"/>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
