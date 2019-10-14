@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<gpx xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxedw="http://www.gpxeditor.co.uk/xmlschemas/WaypointExtension/v1" xmlns:gpxedts="http://www.gpxeditor.co.uk/xmlschemas/TrackSegExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" creator="GPXEditor" version="1.1" xmlns="http://www.topografix.com/GPX/1/1">
+  <wpt lat="51.91949" lon="-0.98116">
+    <name>SP701250</name>
+  </wpt>
+  <wpt lat="51.92018" lon="-0.99086">
+    <name>SP694251</name>
+  </wpt>
+  <wpt lat="51.92039" lon="-0.99301">
+    <name>SP693251</name>
+  </wpt>
+  <wpt lat="51.91653" lon="-1.00168">
+    <name>SP687246</name>
+  </wpt>
+  <wpt lat="51.9161" lon="-1.00605">
+    <name>SP684246</name>
+  </wpt>
+  <wpt lat="51.91637" lon="-1.01086">
+    <name>SP681246</name>
+  </wpt>
+  <wpt lat="51.91817" lon="-1.02133">
+    <name>SP674248</name>
+  </wpt>
+  <wpt lat="51.91822" lon="-1.02425">
+    <name>SP672248</name>
+  </wpt>
+  <wpt lat="51.91447" lon="-1.0247">
+    <name>SP671244</name>
+  </wpt>
+  <wpt lat="51.91113" lon="-1.02771">
+    <name>SP669240</name>
+  </wpt>
+  <wpt lat="51.91171" lon="-1.02942">
+    <name>SP668241</name>
+  </wpt>
+</gpx>

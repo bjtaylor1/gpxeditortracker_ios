@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF54A7F82341067000388205 /* Loop.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AF54A7F72341067000388205 /* Loop.gpx */; };
 		AF54A7FA23412B9200388205 /* ScannerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF54A7F923412B9200388205 /* ScannerContainerViewController.swift */; };
 		AF54A7FC2341F2DF00388205 /* UpdateLocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF54A7FB2341F2DF00388205 /* UpdateLocationData.swift */; };
 		AF57202823394A84009566AC /* TrackingGroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF57202723394A84009566AC /* TrackingGroupData.swift */; };
@@ -24,7 +23,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AF54A7F72341067000388205 /* Loop.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Loop.gpx; path = ../../Downloads/Loop.gpx; sourceTree = "<group>"; };
 		AF54A7F923412B9200388205 /* ScannerContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerContainerViewController.swift; sourceTree = "<group>"; };
 		AF54A7FB2341F2DF00388205 /* UpdateLocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLocationData.swift; sourceTree = "<group>"; };
 		AF57202723394A84009566AC /* TrackingGroupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingGroupData.swift; sourceTree = "<group>"; };
@@ -40,7 +38,7 @@
 		AFA43D24232EA63200F5529C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFE980452336386C00B22E18 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		AFE980482339105600B22E18 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
-		AFF97D4C23549D620070D09B /* MG.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = MG.gpx; path = ../../Downloads/MG.gpx; sourceTree = "<group>"; };
+		AFF97D4E2354AAD80070D09B /* MG-2.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "MG-2.gpx"; path = "gpxeditortracker/MG-2.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +55,7 @@
 		AFA43D09232EA63100F5529C = {
 			isa = PBXGroup;
 			children = (
-				AFF97D4C23549D620070D09B /* MG.gpx */,
-				AF54A7F72341067000388205 /* Loop.gpx */,
+				AFF97D4E2354AAD80070D09B /* MG-2.gpx */,
 				AFA43D14232EA63100F5529C /* gpxeditortracker */,
 				AFA43D13232EA63100F5529C /* Products */,
 			);
@@ -159,7 +156,6 @@
 				AFA43D23232EA63200F5529C /* LaunchScreen.storyboard in Resources */,
 				AFA43D20232EA63200F5529C /* Assets.xcassets in Resources */,
 				AFA43D1B232EA63100F5529C /* Main.storyboard in Resources */,
-				AF54A7F82341067000388205 /* Loop.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
