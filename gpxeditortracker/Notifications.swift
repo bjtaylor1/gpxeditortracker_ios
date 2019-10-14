@@ -12,4 +12,5 @@ extension Notification.Name {
     static let onLocationReceived = Notification.Name("onLocationReceived")
     static let onSetTrackingGroupQrCodeReceived = Notification.Name("onSetTrackingGroupQrCodeReceived")
     static let onLocationAuthorized = Notification.Name("onLocationAuthorized")
+    static let onCameraAccess = Notification.Name("onCameraAccess")
 }

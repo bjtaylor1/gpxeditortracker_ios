@@ -10,8 +10,46 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         dismiss(animated: true)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var started: Bool = false
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        tryStartCapture()
+    }
+    
+    func tryStartCapture() {
+        if(started) {return}
+        started = true
+        
+        switch AVCaptureDevice.authorizationStatus(for: AVMediaType.video) {
+        case .authorized:
+            cameraAccessGranted()
+        case .denied:
+            cameraAccessDenied()
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                if granted {
+                    self.cameraAccessGranted()
+                } else {
+                    self.cameraAccessDenied()
+                }
+            }
+        case .restricted:
+            self.cameraAccessDenied()
+        @unknown default:
+            self.cameraAccessDenied()
+        }
+    }
+    
+    func cameraAccessDenied() {
+        let alert = UIAlertController(title: "Camera", message: "No access to camera. Go to Settings, Privacy, Camera to configure.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {alertAction in self.dismiss(animated: true)}))
+        self.present(alert, animated: true)
+    }
+    
+    func cameraAccessGranted() {
+        NotificationCenter.default.post(name: .onCameraAccess, object: nil)
         
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()

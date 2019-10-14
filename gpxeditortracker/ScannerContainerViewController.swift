@@ -20,6 +20,9 @@ class ScannerContainerViewController : UIViewController {
         cancelButton.isOpaque = true
         cancelButton.layer.cornerRadius = 6
  */
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(forName: .onCameraAccess, object: nil, queue: OperationQueue.main,
+                                               using: {notification in self.cancelButton.isHidden = false})
     }
     @IBOutlet weak var cancelButton: UIButton!
     @IBAction func cancelClick(_ sender: Any) {

@@ -30,7 +30,7 @@
 		AF57202723394A84009566AC /* TrackingGroupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingGroupData.swift; sourceTree = "<group>"; };
 		AF57202923395573009566AC /* ConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
 		AF57202B2340B469009566AC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		AFA43D12232EA63100F5529C /* gpxeditortracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gpxeditortracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFA43D12232EA63100F5529C /* GPXTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPXTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA43D15232EA63100F5529C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFA43D17232EA63100F5529C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AFA43D1A232EA63100F5529C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		AFA43D13232EA63100F5529C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AFA43D12232EA63100F5529C /* gpxeditortracker.app */,
+				AFA43D12232EA63100F5529C /* GPXTracker.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,7 +108,7 @@
 			);
 			name = gpxeditortracker;
 			productName = gpxeditortracker;
-			productReference = AFA43D12232EA63100F5529C /* gpxeditortracker.app */;
+			productReference = AFA43D12232EA63100F5529C /* GPXTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -331,7 +331,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bjt.gpxeditortracker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GPXTracker;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -349,7 +349,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bjt.gpxeditortracker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GPXTracker;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
