@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 import MapKit
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
+    var uploadedLocations : [CLLocationCoordinate2D] = []
+    var uploadedLocationsPolyline : MKPolyline? = nil
     
     @IBOutlet weak var theMap: MKMapView!
     @IBAction func stopClicked(_ sender: Any) {
@@ -22,13 +24,31 @@ class MapViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "No", style: .cancel))
         self.present(alert, animated: true)
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        NotificationCenter.default.addObserver(forName: .onLocationReceived, object: nil, queue: nil)
+        theMap.delegate = self
+        
+        NotificationCenter.default.addObserver(forName: .onLocationReceived, object: nil, queue: OperationQueue.main)
         {(notification) in self.handleOnLocationReceivedNotification(notification: notification)}
         
+        NotificationCenter.default.addObserver(forName: .onLocationUploaded, object: nil, queue: OperationQueue.main)
+        {(notification) in self.handleOnLocationUploadedNotification(notification: notification)}
+
         LocationManager.Instance.start()
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polyline = overlay as? MKPolyline, polyline == uploadedLocationsPolyline {
+            
+            let renderer = MKPolylineRenderer(polyline: polyline)
+            renderer.strokeColor = UIColor(displayP3Red: CGFloat(5)/255, green: CGFloat(124)/255, blue: 1, alpha: 1)
+            renderer.lineWidth = 4
+            return renderer
+        }
+        NSLog("WARN: Unrecognized overlay passed to rendererFor")
+        return MKOverlayRenderer(overlay: overlay)
     }
     
     func handleOnLocationReceivedNotification(notification: Notification) {
@@ -36,6 +56,19 @@ class MapViewController: UIViewController {
             refreshLocationEntity(location: location)
         }
     }
+    
+    func handleOnLocationUploadedNotification(notification: Notification) {
+         if let location = notification.object as? CLLocation {
+            uploadedLocations.append(location.coordinate)
+            if let toRemove = uploadedLocationsPolyline {
+                theMap.removeOverlay(toRemove)
+            }
+            let newPolyline = MKPolyline(coordinates: uploadedLocations, count: uploadedLocations.count)
+            uploadedLocationsPolyline = newPolyline
+            theMap.addOverlay(newPolyline)
+         }
+     }
+
     
     var currentPosReceived: MKPointAnnotation? = nil
     func refreshLocationEntity(location: CLLocation) {

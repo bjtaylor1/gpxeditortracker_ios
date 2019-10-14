@@ -40,6 +40,7 @@
 		AFA43D24232EA63200F5529C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFE980452336386C00B22E18 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		AFE980482339105600B22E18 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		AFF97D4C23549D620070D09B /* MG.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = MG.gpx; path = ../../Downloads/MG.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +57,7 @@
 		AFA43D09232EA63100F5529C = {
 			isa = PBXGroup;
 			children = (
+				AFF97D4C23549D620070D09B /* MG.gpx */,
 				AF54A7F72341067000388205 /* Loop.gpx */,
 				AFA43D14232EA63100F5529C /* gpxeditortracker */,
 				AFA43D13232EA63100F5529C /* Products */,

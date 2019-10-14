@@ -16,6 +16,7 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
     var trackingGroupData: TrackingGroupData? = nil
     var name: String? = nil
     let userId: UUID
+    
     override init() {
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss.fff"
         
@@ -103,7 +104,10 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
                     NSLog("POST ERROR: %@", errorVal.localizedDescription)
                 }
                 if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode >= 300 {
+                    if httpResponse.statusCode >= 200, httpResponse.statusCode < 300 {
+                        NotificationCenter.default.post(name: .onLocationUploaded, object: location)
+                    }
+                    else {
                         NSLog("POST returned %i", httpResponse.statusCode)
                     }
                 }
