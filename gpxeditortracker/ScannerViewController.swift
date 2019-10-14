@@ -12,9 +12,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     var started: Bool = false
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
         tryStartCapture()
     }
     
@@ -32,7 +31,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 if granted {
                     self.cameraAccessGranted()
                 } else {
-                    self.cameraAccessDenied()
+                    // no need to show dialog, as they've just pressed the reject button
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true)
+                    }
+
                 }
             }
         case .restricted:
@@ -43,9 +46,16 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func cameraAccessDenied() {
-        let alert = UIAlertController(title: "Camera", message: "No access to camera. Go to Settings, Privacy, Camera to configure.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {alertAction in self.dismiss(animated: true)}))
-        self.present(alert, animated: true)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Camera", message: "No access to camera. Go to Settings, Privacy, Camera to configure.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.dismiss(animated: true)}))
+            self.present(alert, animated:true)
+        }
+    }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        captureSession = nil
+        super.dismiss(animated: flag, completion: completion)
     }
     
     func cameraAccessGranted() {
