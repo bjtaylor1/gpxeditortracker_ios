@@ -24,3 +24,4 @@ class UpdateLocationData : Codable {
     let Lon: Double;
     let Time: Date;
 }
+

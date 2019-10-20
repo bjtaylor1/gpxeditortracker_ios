@@ -20,6 +20,7 @@
 		AFA43D23232EA63200F5529C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA43D21232EA63200F5529C /* LaunchScreen.storyboard */; };
 		AFE980462336386C00B22E18 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE980452336386C00B22E18 /* Notifications.swift */; };
 		AFE980492339105600B22E18 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE980482339105600B22E18 /* ScannerViewController.swift */; };
+		AFF97D56235CEA4C0070D09B /* RemoveTrackingUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF97D55235CEA4C0070D09B /* RemoveTrackingUserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		AFE980452336386C00B22E18 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		AFE980482339105600B22E18 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		AFF97D4E2354AAD80070D09B /* MG-2.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "MG-2.gpx"; path = "gpxeditortracker/MG-2.gpx"; sourceTree = "<group>"; };
+		AFF97D55235CEA4C0070D09B /* RemoveTrackingUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveTrackingUserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				AF57202723394A84009566AC /* TrackingGroupData.swift */,
 				AF54A7F923412B9200388205 /* ScannerContainerViewController.swift */,
 				AF54A7FB2341F2DF00388205 /* UpdateLocationData.swift */,
+				AFF97D55235CEA4C0070D09B /* RemoveTrackingUserData.swift */,
 			);
 			path = gpxeditortracker;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 			files = (
 				AF57202823394A84009566AC /* TrackingGroupData.swift in Sources */,
 				AFE980462336386C00B22E18 /* Notifications.swift in Sources */,
+				AFF97D56235CEA4C0070D09B /* RemoveTrackingUserData.swift in Sources */,
 				AFA43D18232EA63100F5529C /* MapViewController.swift in Sources */,
 				AF54A7FC2341F2DF00388205 /* UpdateLocationData.swift in Sources */,
 				AF54A7FA23412B9200388205 /* ScannerContainerViewController.swift in Sources */,

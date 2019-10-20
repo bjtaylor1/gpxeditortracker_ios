@@ -49,6 +49,50 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         NSLog("stopping LocationManager")
         locationManager.stopUpdatingLocation()
         lastLocationReceived = nil
+        
+        sendRemoveUserData()
+    }
+    
+    func sendRemoveUserData() {
+        guard let trackingGroupDataValue = trackingGroupData else {
+            NSLog("WARN: trackingGroupData not set")
+            return
+        }
+        
+        let removeUserData = RemoveTrackingUserData(trackingGroup: trackingGroupDataValue.Id, userId: userId)
+        NSLog("Creating the updateLocationData")
+        do {
+            NSLog("Creating the json encoder")
+            let jsonEncoder = JSONEncoder()
+            jsonEncoder.dateEncodingStrategy = .iso8601
+            let jsonData = try jsonEncoder.encode(removeUserData)
+            let url = URL(string: "https://gpxeditor.azurewebsites.net/api/tracking")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            request.httpBody = jsonData
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let errorVal = error {
+                    NSLog("DELETE ERROR: %@", errorVal.localizedDescription)
+                }
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode >= 200, httpResponse.statusCode < 300 {
+                        NSLog("Successfully removed user data")
+                    }
+                    else {
+                        NSLog("DELETE returned %i", httpResponse.statusCode)
+                    }
+                }
+                if let dataValue = data, let dataString = String(data: dataValue, encoding: .utf8) {
+                    if dataString != "" {
+                        NSLog("DELETE data: %@", dataString)
+                    }
+                }
+            }
+            task.resume()
+        } catch {
+            NSLog("ERROR: %@", error.localizedDescription)
+        }
     }
     
     let dateFormatter = DateFormatter()
