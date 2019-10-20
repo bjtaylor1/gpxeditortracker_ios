@@ -14,6 +14,7 @@ class ConfigViewController: UIViewController {
     @IBOutlet weak var trackingGroupLabel: UILabel!
     @IBOutlet weak var trackingGroupSetButton: UIButton!
     @IBOutlet weak var nameTextBox: UITextField!
+    @IBOutlet weak var clearButton: UIButton!
     var readyToLaunchMap: Bool = false
     
     override func viewDidLoad() {
@@ -34,7 +35,16 @@ class ConfigViewController: UIViewController {
         UserDefaults.standard.set(nameTextBox?.text, forKey: "trackingName")
     }
     
+    @IBAction func clickClearButton(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "trackingGroupJson")
+        trackingGroupUnsetLabel.isHidden = false
+        trackingGroupLabel.isHidden = true
+        trackingGroupSetButton.setTitle("Scan QR code to set", for: .normal)
+        clearButton.isHidden = true
+        
+    }
     func loadSettings() {
+        /*setTrackingGroupData(trackingGroupJson: "{\"Name\": \"Challenge Ride\", \"Id\": \"791D5EAC-03B5-4055-A59D-C4164FC6A064\"}", save: true) */ /* for simulator */
         if let trackingGroupJson = UserDefaults.standard.object(forKey: "trackingGroupJson") as? String {
             setTrackingGroupData(trackingGroupJson: trackingGroupJson, save: false)
         }
@@ -64,6 +74,7 @@ class ConfigViewController: UIViewController {
             trackingGroupLabel?.isHidden = false
             trackingGroupLabel?.text = trackingGroupData.Name
             trackingGroupSetButton?.setTitle("Change", for: .normal)
+            clearButton.isHidden = false
         } catch {
             DispatchQueue.main.async {
                 self.showError(title: "Invalid QR code", message: "The QR code scanned is not a valid GPXEditor tracking group.")
