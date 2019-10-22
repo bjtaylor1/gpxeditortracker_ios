@@ -44,7 +44,8 @@ class ConfigViewController: UIViewController {
         
     }
     func loadSettings() {
-        /*setTrackingGroupData(trackingGroupJson: "{\"Name\": \"Challenge Ride\", \"Id\": \"791D5EAC-03B5-4055-A59D-C4164FC6A064\"}", save: true) */ /* for simulator */
+        setTrackingGroupData(trackingGroupJson: "{\"Name\": \"Challenge Ride\", \"Id\": \"791D5EAC-03B5-4055-A59D-C4164FC6A064\"}", save: true)
+        /*
         if let trackingGroupJson = UserDefaults.standard.object(forKey: "trackingGroupJson") as? String {
             setTrackingGroupData(trackingGroupJson: trackingGroupJson, save: false)
         }
@@ -52,6 +53,7 @@ class ConfigViewController: UIViewController {
             LocationManager.Instance.name = name
             nameTextBox.text = name
         }
+ */
     }
     
     func saveTrackingGroupData(trackingGroupJson: String) {
