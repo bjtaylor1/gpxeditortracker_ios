@@ -18,11 +18,12 @@ class ConfigTableViewController : UITableViewController {
         "FrequencySetting"
     ]];
     
+    @IBOutlet var theTableView: UITableView!
     @IBAction func switchChanged(_ sender: Any) {
         
     }
     override func viewDidLoad() {
-        
+        theTableView.rowHeight = UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

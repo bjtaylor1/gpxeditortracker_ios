@@ -12,7 +12,7 @@
         <scene sceneID="Jjj-wp-j4X">
             <objects>
                 <tableViewController id="T12-bf-QAM" customClass="ConfigTableViewController" customModule="GPXTracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Lux-jZ-8As">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Lux-jZ-8As">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -56,18 +56,28 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Frequency (minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Be3-5n-J5D">
-                                            <rect key="frame" x="20" y="11" width="159" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequency (minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Be3-5n-J5D">
+                                            <rect key="frame" x="20" y="11" width="374" height="42"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gY1-GE-mru">
-                                            <rect key="frame" x="20" y="40" width="376" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gY1-GE-mru">
+                                            <rect key="frame" x="18" y="61" width="378" height="51"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="ym7-iU-6wV"/>
+                                            </constraints>
                                         </slider>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="gY1-GE-mru" secondAttribute="bottom" constant="8" id="Dpd-8T-sYa"/>
+                                        <constraint firstItem="gY1-GE-mru" firstAttribute="leading" secondItem="bt5-Uf-0jK" secondAttribute="leadingMargin" id="OBg-kH-Pvg"/>
+                                        <constraint firstItem="Be3-5n-J5D" firstAttribute="top" secondItem="bt5-Uf-0jK" secondAttribute="topMargin" id="OSn-a6-Ohb"/>
+                                        <constraint firstItem="Be3-5n-J5D" firstAttribute="leading" secondItem="bt5-Uf-0jK" secondAttribute="leadingMargin" id="Zyw-ht-Lwd"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Be3-5n-J5D" secondAttribute="trailing" id="drf-Q9-ZZ3"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="gY1-GE-mru" secondAttribute="trailing" id="pcd-LB-kEe"/>
+                                        <constraint firstItem="gY1-GE-mru" firstAttribute="top" secondItem="Be3-5n-J5D" secondAttribute="bottom" constant="8" id="xI1-UU-kY0"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -76,6 +86,9 @@
                             <outlet property="delegate" destination="T12-bf-QAM" id="8mE-9P-P0n"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="theTableView" destination="Lux-jZ-8As" id="eMa-SW-Tpi"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzn-SS-HAl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
