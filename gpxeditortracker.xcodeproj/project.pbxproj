@@ -13,6 +13,7 @@
 		AF57202A23395573009566AC /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF57202923395573009566AC /* ConfigViewController.swift */; };
 		AF57202C2340B469009566AC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF57202B2340B469009566AC /* LocationManager.swift */; };
 		AF7DB3B62364895C00B403F6 /* LocationAccuracyChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7DB3B52364895C00B403F6 /* LocationAccuracyChoice.swift */; };
+		AF7DB3B82364A88C00B403F6 /* ConfigTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7DB3B72364A88C00B403F6 /* ConfigTableViewController.swift */; };
 		AFA43D16232EA63100F5529C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA43D15232EA63100F5529C /* AppDelegate.swift */; };
 		AFA43D18232EA63100F5529C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA43D17232EA63100F5529C /* MapViewController.swift */; };
 		AFA43D1B232EA63100F5529C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA43D19232EA63100F5529C /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 		AF57202923395573009566AC /* ConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
 		AF57202B2340B469009566AC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		AF7DB3B52364895C00B403F6 /* LocationAccuracyChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAccuracyChoice.swift; sourceTree = "<group>"; };
+		AF7DB3B72364A88C00B403F6 /* ConfigTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigTableViewController.swift; sourceTree = "<group>"; };
 		AFA43D12232EA63100F5529C /* GPXTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPXTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA43D15232EA63100F5529C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFA43D17232EA63100F5529C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				AF54A7FB2341F2DF00388205 /* UpdateLocationData.swift */,
 				AFF97D55235CEA4C0070D09B /* RemoveTrackingUserData.swift */,
 				AF7DB3B52364895C00B403F6 /* LocationAccuracyChoice.swift */,
+				AF7DB3B72364A88C00B403F6 /* ConfigTableViewController.swift */,
 			);
 			path = gpxeditortracker;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				AF57202823394A84009566AC /* TrackingGroupData.swift in Sources */,
 				AFE980462336386C00B22E18 /* Notifications.swift in Sources */,
 				AF7DB3B62364895C00B403F6 /* LocationAccuracyChoice.swift in Sources */,
+				AF7DB3B82364A88C00B403F6 /* ConfigTableViewController.swift in Sources */,
 				AFF97D56235CEA4C0070D09B /* RemoveTrackingUserData.swift in Sources */,
 				AFA43D18232EA63100F5529C /* MapViewController.swift in Sources */,
 				AF54A7FC2341F2DF00388205 /* UpdateLocationData.swift in Sources */,

@@ -11,6 +11,7 @@ import CoreData
 import MapKit
 class ConfigViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    @IBOutlet weak var frequencyControlsContainer: UIView!
     let accuracies = [
         LocationAccuracyChoice(accuracy: kCLLocationAccuracyThreeKilometers, title: "3km"),
         LocationAccuracyChoice(accuracy: kCLLocationAccuracyKilometer, title: "1km"),
@@ -33,6 +34,14 @@ class ConfigViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         return accuracies[row].Title
     }
     
+    @IBAction func alwaysOnChanged(_ sender: Any) {
+        let useFrequency = !alwaysOnSwitch.isOn
+        
+        UserDefaults.standard.set(useFrequency, forKey: "UseFrequency")
+        showFrequencyControls(useFrequency: useFrequency)
+    }
+    
+    @IBOutlet weak var alwaysOnSwitch: UISwitch!
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         UserDefaults.standard.set(row, forKey: "Accuracy")
     }
@@ -40,6 +49,8 @@ class ConfigViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet weak var trackingGroupUnsetLabel: UILabel!
     @IBOutlet weak var trackingGroupLabel: UILabel!
     @IBOutlet weak var trackingGroupSetButton: UIButton!
+    @IBOutlet weak var frequencyLabel: UILabel!
+    @IBOutlet weak var frequencySlider: UISlider!
     @IBOutlet weak var nameTextBox: UITextField!
     @IBOutlet weak var clearButton: UIButton!
     var readyToLaunchMap: Bool = false
@@ -72,8 +83,13 @@ class ConfigViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         trackingGroupLabel.isHidden = true
         trackingGroupSetButton.setTitle("Scan QR code to set", for: .normal)
         clearButton.isHidden = true
-        
     }
+    
+    func showFrequencyControls(useFrequency: Bool) {
+        frequencyLabel.isHidden = !useFrequency
+        frequencySlider.isHidden = !useFrequency
+    }
+    
     func loadSettings() {
         //setTrackingGroupData(trackingGroupJson: "{\"Name\": \"Challenge Ride\", \"Id\": \"791D5EAC-03B5-4055-A59D-C4164FC6A064\"}", save: true)
         
@@ -88,6 +104,9 @@ class ConfigViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         let accuracy = UserDefaults.standard.integer(forKey: "Accuracy")
         accuracyPicker.selectRow(accuracy, inComponent: 0, animated: false)
 
+        let useFrequency = UserDefaults.standard.bool(forKey: "UseFrequency")
+        alwaysOnSwitch.isOn = !useFrequency
+        showFrequencyControls(useFrequency: useFrequency)
     }
     
     func saveTrackingGroupData(trackingGroupJson: String) {
