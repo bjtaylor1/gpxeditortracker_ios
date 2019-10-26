@@ -10,66 +10,76 @@ import Foundation
 import UIKit
 class ConfigTableViewController : UITableViewController, SwitchCellViewDelegate {
 
-    var onAllTheTime: Bool = true
+    let frequencySection = FrequencySection(onAllTheTime: UserDefaults.standard.bool(forKey: "OnAllTheTime"))
+    let sections : [SettingsSection]
     
-    @IBOutlet weak var labelCell: UITableViewCell!
-    @IBOutlet weak var frequencyCell: UITableViewCell!
-    
-    let allSettings = [[
-        "SwitchSetting",
-        "FrequencySetting"
-    ]];
-    var settings : [[String]] = [[]]
-    
-    func includeSetting(setting : String) -> Bool {
-        if setting == "FrequencySetting" {
-            return !onAllTheTime
-        }
-        else {
-            return true
-        }
-    }
-    
-    func refresh() {
-        settings = allSettings.map(
-            {(sectionStrings) in return sectionStrings.filter(
-                {s in includeSetting(setting: s)})})
+    required init?(coder: NSCoder) {
+        sections = [frequencySection]
+        super.init(coder: coder)
     }
     
     @IBOutlet var theTableView: UITableView!
-    @IBAction func switchChanged(_ sender: Any) {
-        
-    }
-    override func viewDidLoad() {
-        theTableView.rowHeight = UITableView.automaticDimension
-        refresh()
-        super.viewDidLoad()
-    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settings[section].count
+        return sections[section].getSettings().count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return settings.count
+        return sections.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let setting = settings[indexPath.section][indexPath.row]
+        let setting = sections[indexPath.section].getSettings()[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: setting)!
-        
         if let switchCell = cell as? SwitchCellView {
             switchCell.delegate = self
+            switchCell.theSwitch.isOn = frequencySection.onAllTheTime
         }
         return cell
     }
     
     func onAllTheTimeSettingChanged(newVal: Bool) {
-        onAllTheTime = newVal
-        refresh()
-        theTableView.reloadData()
+        guard let frequencySectionIndex = sections.firstIndex(of: frequencySection) else {
+            NSLog("WARN: frequencySectionIndex null")
+            return
+        }
+        frequencySection.onAllTheTime = newVal
+        theTableView.reloadSections(IndexSet([frequencySectionIndex]), with: .automatic)
+    }
+}
+
+class SettingsSection : Equatable {
+    static func == (lhs: SettingsSection, rhs: SettingsSection) -> Bool {
+        return lhs.Name == rhs.Name
     }
     
+    private let settings : [String]
+    let Name : String
+    init(name: String, settings: [String]) {
+        Name = name
+        self.settings = settings
+    }
+    
+    func getSettings() -> [String] {
+        return settings.filter({setting in showSetting(setting: setting)});
+    }
+    func showSetting(setting: String) -> Bool {
+        return true
+    }
+}
+
+class FrequencySection : SettingsSection {
+    var onAllTheTime : Bool
+    init(onAllTheTime: Bool) {
+        self.onAllTheTime = onAllTheTime
+        super.init(name: "Frequency", settings: ["SwitchSetting", "FrequencySetting"])
+    }
+    override func showSetting(setting: String) -> Bool {
+        if setting == "FrequencySetting" {
+            return !onAllTheTime
+        }
+        return super.showSetting(setting: setting)
+    }
 }
 
 protocol SwitchCellViewDelegate : class {
@@ -83,7 +93,5 @@ class SwitchCellView : UITableViewCell {
     @IBAction func onAllTheTimeSwitchChanged(_ sender: Any) {
         delegate?.onAllTheTimeSettingChanged(newVal: theSwitch.isOn)
     }
-    
-    
 }
 
