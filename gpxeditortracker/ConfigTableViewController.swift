@@ -10,7 +10,11 @@ import Foundation
 import UIKit
 class ConfigTableViewController : UITableViewController, SwitchCellViewDelegate {
 
-    let frequencySection = FrequencySection(onAllTheTime: UserDefaults.standard.bool(forKey: "OnAllTheTime"))
+    
+    let frequencySection = FrequencySection(
+        onAllTheTime: UserDefaults.standard.bool(forKey: "OnAllTheTime"),
+        frequencyMinutesRoot: UserDefaults.standard.float(forKey: "UpdateFrequencyMinutesRoot")
+    )
     let sections : [SettingsSection]
     
     required init?(coder: NSCoder) {
@@ -29,11 +33,19 @@ class ConfigTableViewController : UITableViewController, SwitchCellViewDelegate 
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let setting = sections[indexPath.section].getSettings()[indexPath.row]
+        let section = sections[indexPath.section]
+        let setting = section.getSettings()[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: setting)!
+        
+        /*
         if let switchCell = cell as? SwitchCellView {
             switchCell.delegate = self
             switchCell.theSwitch.isOn = frequencySection.onAllTheTime
+        }
+        */
+        
+        if let theCell = cell as? ConfigUITableViewCell {
+            theCell.update(section: section)
         }
         return cell
     }
@@ -70,8 +82,10 @@ class SettingsSection : Equatable {
 
 class FrequencySection : SettingsSection {
     var onAllTheTime : Bool
-    init(onAllTheTime: Bool) {
+    var frequencyMinutesRoot: Float
+    init(onAllTheTime: Bool, frequencyMinutesRoot: Float) {
         self.onAllTheTime = onAllTheTime
+        self.frequencyMinutesRoot = frequencyMinutesRoot
         super.init(name: "Frequency", settings: ["SwitchSetting", "FrequencySetting"])
     }
     override func showSetting(setting: String) -> Bool {
@@ -82,16 +96,54 @@ class FrequencySection : SettingsSection {
     }
 }
 
+
 protocol SwitchCellViewDelegate : class {
     func onAllTheTimeSettingChanged(newVal: Bool)
 }
 
-class SwitchCellView : UITableViewCell {
+
+class ConfigUITableViewCell : UITableViewCell {
+    func update(section: SettingsSection) {
+    }
+}
+
+class SwitchCellView : ConfigUITableViewCell {
     weak var delegate : SwitchCellViewDelegate?
     @IBOutlet weak var theSwitch: UISwitch!
 
     @IBAction func onAllTheTimeSwitchChanged(_ sender: Any) {
         delegate?.onAllTheTimeSettingChanged(newVal: theSwitch.isOn)
     }
+    
+    override func update(section: SettingsSection) {
+        guard let frequencySection = section as? FrequencySection else {
+            NSLog("WARN: SwitchCellView.update passed wrong type of section")
+            return
+        }
+        theSwitch.isOn = frequencySection.onAllTheTime
+    }
 }
 
+class FrequencyCellView : ConfigUITableViewCell {
+    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var frequencyLabel: UILabel!
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+        updateLabel(val: sender.value)
+    }
+    
+    override func update(section: SettingsSection) {
+        guard let frequencySection = section as? FrequencySection else {
+            NSLog("WARN: FrequencyCellView.update passed wrong type of section");
+            return
+        }
+        slider.minimumValue = 1
+        slider.maximumValue = Float(60).squareRoot()
+        slider.value = frequencySection.frequencyMinutesRoot
+        updateLabel(val: frequencySection.frequencyMinutesRoot)
+    }
+    
+    func updateLabel(val: Float) {
+        let roundedVal = (val*val).rounded()
+        frequencyLabel.text = String(Int(roundedVal))
+    }
+}

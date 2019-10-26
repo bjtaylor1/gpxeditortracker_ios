@@ -52,7 +52,7 @@
                                     <outlet property="theSwitch" destination="NMx-iK-q1a" id="JMV-cL-XZL"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FrequencySetting" rowHeight="130" id="yuV-MU-Ow9">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FrequencySetting" rowHeight="130" id="yuV-MU-Ow9" customClass="FrequencyCellView" customModule="GPXTracker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="127" width="414" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yuV-MU-Ow9" id="bt5-Uf-0jK">
@@ -65,11 +65,14 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="1" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="gY1-GE-mru">
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="225" minValue="1" maxValue="3600" translatesAutoresizingMaskIntoConstraints="NO" id="gY1-GE-mru">
                                             <rect key="frame" x="18" y="61" width="378" height="51"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="ym7-iU-6wV"/>
                                             </constraints>
+                                            <connections>
+                                                <action selector="sliderValueChanged:" destination="yuV-MU-Ow9" eventType="valueChanged" id="UeS-Jh-Kfv"/>
+                                            </connections>
                                         </slider>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4V-YR-t7y">
                                             <rect key="frame" x="332" y="11" width="62" height="37"/>
@@ -92,6 +95,10 @@
                                         <constraint firstItem="gY1-GE-mru" firstAttribute="top" secondItem="Be3-5n-J5D" secondAttribute="bottom" constant="8" id="xI1-UU-kY0"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="frequencyLabel" destination="H4V-YR-t7y" id="Nvx-UY-TPV"/>
+                                    <outlet property="slider" destination="gY1-GE-mru" id="0I7-jn-6G5"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
