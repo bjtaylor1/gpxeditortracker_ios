@@ -55,13 +55,6 @@
                                     <action selector="nameEditingChange:" destination="9SL-5g-T0O" eventType="editingChanged" id="iBP-UC-IM9"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Wm-0B-fbw">
-                                <rect key="frame" x="20" y="270" width="119.5" height="30"/>
-                                <state key="normal" title="Start tracking"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="startTrackingSegue" id="ZRx-u6-r7H"/>
-                                </connections>
-                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHA-Mx-htN">
                                 <rect key="frame" x="246" y="127" width="58" height="30"/>
                                 <state key="normal" title="Clear"/>
@@ -69,30 +62,54 @@
                                     <action selector="clickClearButton:" destination="9SL-5g-T0O" eventType="touchUpInside" id="to1-Oe-oKd"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d4B-jj-gX7">
+                                <rect key="frame" x="20" y="299" width="374" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="fxz-Q0-sn2"/>
+                                </constraints>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accuracy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIQ-Ik-InE">
+                                <rect key="frame" x="20" y="270" width="72" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Wm-0B-fbw">
+                                <rect key="frame" x="20" y="424" width="119.5" height="30"/>
+                                <state key="normal" title="Start tracking"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="startTrackingSegue" id="ZRx-u6-r7H"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="YeB-oO-bUl" firstAttribute="leading" secondItem="Qjj-KW-fEe" secondAttribute="leading" id="05j-Nd-vSi"/>
                             <constraint firstItem="eHA-Mx-htN" firstAttribute="top" secondItem="qVs-g3-pDH" secondAttribute="bottom" constant="8.5" id="2yV-aw-xGA"/>
+                            <constraint firstItem="KIQ-Ik-InE" firstAttribute="top" secondItem="kl7-dR-jvP" secondAttribute="bottom" constant="25" id="5Cz-C5-mid"/>
+                            <constraint firstItem="d4B-jj-gX7" firstAttribute="leading" secondItem="KIQ-Ik-InE" secondAttribute="leading" id="65s-GR-3Hn"/>
                             <constraint firstItem="fmm-oH-SoH" firstAttribute="top" secondItem="Li7-wx-vNK" secondAttribute="top" constant="25" id="7Up-I4-b0U"/>
+                            <constraint firstItem="0Wm-0B-fbw" firstAttribute="top" secondItem="d4B-jj-gX7" secondAttribute="bottom" constant="25" id="9Am-VS-e4w"/>
                             <constraint firstItem="yOz-1F-hiR" firstAttribute="trailing" secondItem="qVs-g3-pDH" secondAttribute="trailing" id="AGY-bJ-s6N"/>
                             <constraint firstItem="yOz-1F-hiR" firstAttribute="leading" secondItem="fmm-oH-SoH" secondAttribute="leading" id="Cbh-RQ-qf8"/>
+                            <constraint firstItem="0Wm-0B-fbw" firstAttribute="leading" secondItem="d4B-jj-gX7" secondAttribute="leading" id="Czr-ee-WIL"/>
                             <constraint firstItem="qVs-g3-pDH" firstAttribute="trailing" secondItem="tYg-x1-EmU" secondAttribute="trailingMargin" id="Ip1-aL-gjS"/>
+                            <constraint firstItem="0Wm-0B-fbw" firstAttribute="trailing" secondItem="fmm-oH-SoH" secondAttribute="trailing" id="J7U-MQ-oAS"/>
                             <constraint firstItem="Li7-wx-vNK" firstAttribute="trailing" secondItem="eHA-Mx-htN" secondAttribute="trailing" constant="110" id="KAz-r8-knC"/>
+                            <constraint firstItem="d4B-jj-gX7" firstAttribute="trailing" secondItem="kl7-dR-jvP" secondAttribute="trailing" id="KLx-fJ-O8x"/>
                             <constraint firstItem="eHA-Mx-htN" firstAttribute="centerY" secondItem="Qjj-KW-fEe" secondAttribute="centerY" id="Kyx-os-MHH"/>
+                            <constraint firstItem="d4B-jj-gX7" firstAttribute="top" secondItem="KIQ-Ik-InE" secondAttribute="bottom" constant="8" id="LRG-fH-5pe"/>
                             <constraint firstItem="kl7-dR-jvP" firstAttribute="trailing" secondItem="YeB-oO-bUl" secondAttribute="trailing" id="NQg-qg-Je7"/>
                             <constraint firstItem="eHA-Mx-htN" firstAttribute="leading" secondItem="Qjj-KW-fEe" secondAttribute="trailing" constant="25" id="S1n-or-7od"/>
                             <constraint firstItem="qVs-g3-pDH" firstAttribute="top" secondItem="fmm-oH-SoH" secondAttribute="bottom" constant="8" id="S3b-G7-9sW"/>
                             <constraint firstItem="Qjj-KW-fEe" firstAttribute="top" secondItem="qVs-g3-pDH" secondAttribute="bottom" constant="8" id="TGn-Hh-coJ"/>
-                            <constraint firstItem="fmm-oH-SoH" firstAttribute="trailing" secondItem="0Wm-0B-fbw" secondAttribute="trailing" id="W8v-Zk-fEy"/>
                             <constraint firstItem="yOz-1F-hiR" firstAttribute="leading" secondItem="Qjj-KW-fEe" secondAttribute="leading" id="aNE-1K-djJ"/>
                             <constraint firstItem="kl7-dR-jvP" firstAttribute="top" secondItem="YeB-oO-bUl" secondAttribute="bottom" constant="7.5" id="ahA-Lb-UCS"/>
-                            <constraint firstItem="0Wm-0B-fbw" firstAttribute="leading" secondItem="kl7-dR-jvP" secondAttribute="leading" id="dcU-bA-mmZ"/>
                             <constraint firstItem="YeB-oO-bUl" firstAttribute="trailing" secondItem="Qjj-KW-fEe" secondAttribute="trailing" constant="173" id="eGT-T3-bWO"/>
                             <constraint firstItem="YeB-oO-bUl" firstAttribute="top" secondItem="Qjj-KW-fEe" secondAttribute="bottom" constant="25" id="ecb-cj-YvF"/>
                             <constraint firstItem="qVs-g3-pDH" firstAttribute="trailing" secondItem="Qjj-KW-fEe" secondAttribute="trailing" constant="173" id="hK1-ms-odh"/>
                             <constraint firstItem="yOz-1F-hiR" firstAttribute="baseline" secondItem="qVs-g3-pDH" secondAttribute="baseline" id="j9F-4Z-7Xd"/>
+                            <constraint firstItem="KIQ-Ik-InE" firstAttribute="leading" secondItem="kl7-dR-jvP" secondAttribute="leading" id="lbT-UK-Mu5"/>
                             <constraint firstItem="yOz-1F-hiR" firstAttribute="leading" secondItem="qVs-g3-pDH" secondAttribute="leading" id="otW-7J-s68"/>
-                            <constraint firstItem="0Wm-0B-fbw" firstAttribute="top" secondItem="kl7-dR-jvP" secondAttribute="bottom" constant="25" id="qr8-8i-MWt"/>
                             <constraint firstItem="fmm-oH-SoH" firstAttribute="leading" secondItem="tYg-x1-EmU" secondAttribute="leadingMargin" id="xGu-W0-Y16"/>
                             <constraint firstItem="kl7-dR-jvP" firstAttribute="leading" secondItem="YeB-oO-bUl" secondAttribute="leading" id="ycr-VK-hcn"/>
                         </constraints>
@@ -100,6 +117,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Config" image="second" selectedImage="second" id="fiz-b5-oVE"/>
                     <connections>
+                        <outlet property="accuracyPicker" destination="d4B-jj-gX7" id="DXU-oT-lLn"/>
                         <outlet property="clearButton" destination="eHA-Mx-htN" id="lCu-63-mVi"/>
                         <outlet property="nameTextBox" destination="kl7-dR-jvP" id="TPJ-Pf-Kdx"/>
                         <outlet property="trackingGroupLabel" destination="qVs-g3-pDH" id="haa-7d-uZi"/>

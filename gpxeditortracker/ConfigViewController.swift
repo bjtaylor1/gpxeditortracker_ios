@@ -9,7 +9,34 @@
 import UIKit
 import CoreData
 import MapKit
-class ConfigViewController: UIViewController {
+class ConfigViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    let accuracies = [
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyThreeKilometers, title: "3km"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyKilometer, title: "1km"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyHundredMeters, title: "100m"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyNearestTenMeters, title: "10m"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyBest, title: "Best"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyBestForNavigation, title: "Best for navigation")
+    ]
+    
+    let pickerData = ["One", "Two", "Three"]
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return accuracies.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return accuracies[row].Title
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        UserDefaults.standard.set(row, forKey: "Accuracy")
+    }
+    
     @IBOutlet weak var trackingGroupUnsetLabel: UILabel!
     @IBOutlet weak var trackingGroupLabel: UILabel!
     @IBOutlet weak var trackingGroupSetButton: UIButton!
@@ -17,6 +44,7 @@ class ConfigViewController: UIViewController {
     @IBOutlet weak var clearButton: UIButton!
     var readyToLaunchMap: Bool = false
     
+    @IBOutlet weak var accuracyPicker: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +53,9 @@ class ConfigViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: .onLocationAuthorized, object: nil, queue: nil, using:
         { (notification) in self.onLocationAuthorizedReceived(notification: notification)})
+        
+        accuracyPicker.delegate = self
+        accuracyPicker.dataSource = self
         
         loadSettings()
     }
@@ -44,8 +75,8 @@ class ConfigViewController: UIViewController {
         
     }
     func loadSettings() {
-        setTrackingGroupData(trackingGroupJson: "{\"Name\": \"Challenge Ride\", \"Id\": \"791D5EAC-03B5-4055-A59D-C4164FC6A064\"}", save: true)
-        /*
+        //setTrackingGroupData(trackingGroupJson: "{\"Name\": \"Challenge Ride\", \"Id\": \"791D5EAC-03B5-4055-A59D-C4164FC6A064\"}", save: true)
+        
         if let trackingGroupJson = UserDefaults.standard.object(forKey: "trackingGroupJson") as? String {
             setTrackingGroupData(trackingGroupJson: trackingGroupJson, save: false)
         }
@@ -53,7 +84,10 @@ class ConfigViewController: UIViewController {
             LocationManager.Instance.name = name
             nameTextBox.text = name
         }
- */
+        
+        let accuracy = UserDefaults.standard.integer(forKey: "Accuracy")
+        accuracyPicker.selectRow(accuracy, inComponent: 0, animated: false)
+
     }
     
     func saveTrackingGroupData(trackingGroupJson: String) {
