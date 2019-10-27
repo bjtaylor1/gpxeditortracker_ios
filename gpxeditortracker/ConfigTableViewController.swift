@@ -97,7 +97,7 @@ class TrackingGroupSection : SettingsSection {
         if let trackingGroupJson = trackingGroupJsonSetting {
             trackingGroup = TrackingGroupData.parse(trackingGroupJson: trackingGroupJson)
         }
-        super.init(name: "TrackingGroup", settings: ["TrackingGroupTitle", "TrackingGroupSet", "TrackingGroupUnset"])
+        super.init(name: "TrackingGroup", settings: ["TrackingGroupSet", "TrackingGroupUnset"])
     }
     
     override func showSetting(setting: String) -> Bool {

@@ -61,6 +61,13 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     func cameraAccessGranted() {
         NotificationCenter.default.post(name: .onCameraAccess, object: nil)
         
+        DispatchQueue.main.async {
+            self.cameraAccessGrantedUi()
+        }
+        
+    }
+    
+    func cameraAccessGrantedUi() {
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
