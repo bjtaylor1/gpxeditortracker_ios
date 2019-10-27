@@ -37,15 +37,8 @@ class ConfigTableViewController : UITableViewController, SwitchCellViewDelegate 
         let setting = section.getSettings()[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: setting)!
         
-        /*
-        if let switchCell = cell as? SwitchCellView {
-            switchCell.delegate = self
-            switchCell.theSwitch.isOn = frequencySection.onAllTheTime
-        }
-        */
-        
         if let theCell = cell as? ConfigUITableViewCell {
-            theCell.update(section: section)
+            theCell.update(section: section, delegateTarget: self)
         }
         return cell
     }
@@ -96,18 +89,28 @@ class FrequencySection : SettingsSection {
     }
 }
 
-
 protocol SwitchCellViewDelegate : class {
     func onAllTheTimeSettingChanged(newVal: Bool)
 }
 
+protocol UpdateSettingsSection {
+    func updateSection(section: SettingsSection, delegateTarget: Any)
+}
 
-class ConfigUITableViewCell : UITableViewCell {
-    func update(section: SettingsSection) {
+class ConfigUITableViewCell<T : SettingsSection> : UITableViewCell, UpdateSettingsSection {
+    func updateSection(section: SettingsSection, delegateTarget: Any) {
+        guard let specificSection = section as? T else {
+            NSLog("WARN: passed wrong type of section (%@) to %@", String(describing: T.self), String(describing: self))
+            return
+        }
+        update(section: specificSection, delegateTarget: delegateTarget)
+    }
+    
+    func update(section: T, delegateTarget: Any) {
     }
 }
 
-class SwitchCellView : ConfigUITableViewCell {
+class SwitchCellView : ConfigUITableViewCell<FrequencySection> {
     weak var delegate : SwitchCellViewDelegate?
     @IBOutlet weak var theSwitch: UISwitch!
 
@@ -115,31 +118,26 @@ class SwitchCellView : ConfigUITableViewCell {
         delegate?.onAllTheTimeSettingChanged(newVal: theSwitch.isOn)
     }
     
-    override func update(section: SettingsSection) {
-        guard let frequencySection = section as? FrequencySection else {
-            NSLog("WARN: SwitchCellView.update passed wrong type of section")
-            return
+    override func update(section: FrequencySection, delegateTarget: Any) {
+        theSwitch.isOn = section.onAllTheTime
+        if let switchCellViewDelegateTarget = delegateTarget as? SwitchCellViewDelegate {
+            self.delegate = switchCellViewDelegateTarget
         }
-        theSwitch.isOn = frequencySection.onAllTheTime
     }
 }
 
-class FrequencyCellView : ConfigUITableViewCell {
+class FrequencyCellView : ConfigUITableViewCell<FrequencySection> {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var frequencyLabel: UILabel!
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         updateLabel(val: sender.value)
     }
     
-    override func update(section: SettingsSection) {
-        guard let frequencySection = section as? FrequencySection else {
-            NSLog("WARN: FrequencyCellView.update passed wrong type of section");
-            return
-        }
+    override func update(section: FrequencySection, delegateTarget : Any) {
         slider.minimumValue = 1
         slider.maximumValue = Float(60).squareRoot()
-        slider.value = frequencySection.frequencyMinutesRoot
-        updateLabel(val: frequencySection.frequencyMinutesRoot)
+        slider.value = section.frequencyMinutesRoot
+        updateLabel(val: section.frequencyMinutesRoot)
     }
     
     func updateLabel(val: Float) {
