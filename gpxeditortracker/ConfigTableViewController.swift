@@ -58,6 +58,16 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
         }
         theTableView.reloadSections(IndexSet([sectionIndex]), with: .automatic)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "scanTrackingGroupQrSegue" {
+            guard let scannerContainerViewController = segue.destination as? ScannerContainerViewController else {
+                NSLog("WARNING - expected destination to be ScannerContainerViewController")
+                return
+            }
+            scannerContainerViewController.notificationName = .onSetTrackingGroupQrCodeReceived
+        }
+    }
 }
 
 class SettingsSection : Equatable {
@@ -90,6 +100,15 @@ class TrackingGroupSection : SettingsSection {
         super.init(name: "TrackingGroup", settings: ["TrackingGroupTitle", "TrackingGroupSet", "TrackingGroupUnset"])
     }
     
+    override func showSetting(setting: String) -> Bool {
+        if setting == "TrackingGroupSet" {
+            return (trackingGroup != nil)
+        } else if setting == "TrackingGroupUnset" {
+            return (trackingGroup == nil)
+        } else {
+            return super.showSetting(setting: setting)
+        }
+    }
     
 }
 
@@ -135,6 +154,9 @@ class ConfigUITableViewCell<T : SettingsSection> : UITableViewCell, UpdateSettin
 }
 
 class TrackingGroupUnsetTableViewCell : ConfigUITableViewCell<TrackingGroupSection> {
+    
+    @IBAction func scanQrCode(_ sender: Any) {
+    }
 }
 
 class TrackingGroupSetTableViewCell : ConfigUITableViewCell<TrackingGroupSection> {
