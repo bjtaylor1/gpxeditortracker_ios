@@ -127,7 +127,7 @@ class TrackingGroupSection : SettingsSection {
         if let trackingGroupJson = trackingGroupJsonSetting {
             trackingGroup = TrackingGroupData.parse(trackingGroupJson: trackingGroupJson)
         }
-        super.init(name: "TrackingGroup", settings: ["TrackingGroupSet", "TrackingGroupUnset"])
+        super.init(name: "TrackingGroup", settings: ["TrackingGroupTitle", "TrackingGroupSet", "TrackingGroupUnset"])
     }
     
     override func showSetting(setting: String) -> Bool {
@@ -184,13 +184,26 @@ class ConfigUITableViewCell<T : SettingsSection> : UITableViewCell, UpdateSettin
 }
 
 class TrackingGroupUnsetTableViewCell : ConfigUITableViewCell<TrackingGroupSection> {
-    
-    @IBAction func scanQrCode(_ sender: Any) {
-    }
 }
 
 class TrackingGroupSetTableViewCell : ConfigUITableViewCell<TrackingGroupSection> {
-    
+    @IBOutlet weak var trackingGroupNameLabel: UILabel!
+    override func updateView() {
+        guard let trackingGroupName = viewModel?.trackingGroup?.Name else {
+            NSLog("WARN: trackingGroup.Name not set when it should be")
+            return
+        }
+        trackingGroupNameLabel.text = trackingGroupName
+    }
+    @IBAction func clearTrackingGroup(_ sender: Any) {
+        guard let vm = viewModel else {
+            NSLog("WARN: viewModel not set in clearTrackingGroup")
+            return
+        }
+        UserDefaults.standard.removeObject(forKey: "trackingGroupJson")
+        vm.trackingGroup = nil
+        delegate?.reloadSection(vm: vm)
+    }
 }
 
 class SwitchCellView : ConfigUITableViewCell<FrequencySection> {
