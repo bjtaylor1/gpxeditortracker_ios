@@ -30,6 +30,36 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
         super.init(coder: coder)
     }
     
+    override func viewDidLoad() {
+        NotificationCenter.default.addObserver(forName: .onSetTrackingGroupQrCodeReceived, object: nil, queue: OperationQueue.main, using:
+         {(notification) in self.handleSetTrackingGroupQrCodeReceived(notification: notification)})
+        
+    }
+    
+    func handleSetTrackingGroupQrCodeReceived(notification: Notification) {
+
+        guard let qrCodeString = notification.object as? String else {
+            NSLog("Error: QRCode data was not a string")
+            return
+        }
+        
+        guard let trackingGroup = TrackingGroupData.parse(trackingGroupJson: qrCodeString) else {
+            showError(title: "Invalid QR code", message: "The QR code scanned is not a valid GPXEditor tracking group.")
+            return
+        }
+        
+        UserDefaults.standard.set(qrCodeString, forKey: "trackingGroupJson")
+        trackingGroupSection.trackingGroup = trackingGroup
+        reloadSection(vm: trackingGroupSection)
+    }
+    
+    func showError(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message , preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+
+    }
+    
     @IBOutlet var theTableView: UITableView!
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
