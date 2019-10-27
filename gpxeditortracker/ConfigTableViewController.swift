@@ -37,8 +37,8 @@ class ConfigTableViewController : UITableViewController, SwitchCellViewDelegate 
         let setting = section.getSettings()[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: setting)!
         
-        if let theCell = cell as? ConfigUITableViewCell {
-            theCell.update(section: section, delegateTarget: self)
+        if let theCell = cell as? UpdateSettingsSection {
+            theCell.updateSection(section: section, delegateTarget: self)
         }
         return cell
     }
@@ -98,15 +98,17 @@ protocol UpdateSettingsSection {
 }
 
 class ConfigUITableViewCell<T : SettingsSection> : UITableViewCell, UpdateSettingsSection {
+    var viewModel : T? = nil
     func updateSection(section: SettingsSection, delegateTarget: Any) {
         guard let specificSection = section as? T else {
             NSLog("WARN: passed wrong type of section (%@) to %@", String(describing: T.self), String(describing: self))
             return
         }
-        update(section: specificSection, delegateTarget: delegateTarget)
+        viewModel = specificSection
+        updateView(delegateTarget: delegateTarget)
     }
     
-    func update(section: T, delegateTarget: Any) {
+    func updateView(delegateTarget: Any) {
     }
 }
 
@@ -114,12 +116,13 @@ class SwitchCellView : ConfigUITableViewCell<FrequencySection> {
     weak var delegate : SwitchCellViewDelegate?
     @IBOutlet weak var theSwitch: UISwitch!
 
-    @IBAction func onAllTheTimeSwitchChanged(_ sender: Any) {
+    @IBAction func onAllTheTimeSwitchChanged(_ sender: UISwitch) {
+        viewModel!.onAllTheTime = sender.isOn
         delegate?.onAllTheTimeSettingChanged(newVal: theSwitch.isOn)
     }
     
-    override func update(section: FrequencySection, delegateTarget: Any) {
-        theSwitch.isOn = section.onAllTheTime
+    override func updateView(delegateTarget: Any) {
+        theSwitch.isOn = viewModel!.onAllTheTime
         if let switchCellViewDelegateTarget = delegateTarget as? SwitchCellViewDelegate {
             self.delegate = switchCellViewDelegateTarget
         }
@@ -130,14 +133,15 @@ class FrequencyCellView : ConfigUITableViewCell<FrequencySection> {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var frequencyLabel: UILabel!
     @IBAction func sliderValueChanged(_ sender: UISlider) {
+        viewModel!.frequencyMinutesRoot = sender.value
         updateLabel(val: sender.value)
     }
     
-    override func update(section: FrequencySection, delegateTarget : Any) {
+    override func updateView(delegateTarget : Any) {
         slider.minimumValue = 1
         slider.maximumValue = Float(60).squareRoot()
-        slider.value = section.frequencyMinutesRoot
-        updateLabel(val: section.frequencyMinutesRoot)
+        slider.value = viewModel!.frequencyMinutesRoot
+        updateLabel(val: viewModel!.frequencyMinutesRoot)
     }
     
     func updateLabel(val: Float) {
