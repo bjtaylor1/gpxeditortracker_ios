@@ -17,11 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UserDefaults.standard.register(defaults:
-            [
-                "UpdateFrequencyMinutesRoot": Float(15).squareRoot(),
-                "OnAllTheTime": false
-            ])
+        
         return true
     }
     

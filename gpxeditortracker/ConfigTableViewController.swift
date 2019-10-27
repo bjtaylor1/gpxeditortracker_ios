@@ -10,14 +10,20 @@ import Foundation
 import UIKit
 class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
 
-    
-    let frequencySection = FrequencySection(
-        onAllTheTime: UserDefaults.standard.bool(forKey: "OnAllTheTime"),
-        frequencyMinutes: UserDefaults.standard.float(forKey: "UpdateFrequencyMinutesRoot")
-    )
+
+    let frequencySection : FrequencySection
     let sections : [SettingsSection]
     
     required init?(coder: NSCoder) {
+        UserDefaults.standard.register(defaults:
+        [
+            "UpdateFrequencyMinutes": Float(15),
+            "OnAllTheTime": false
+        ])
+        
+        let onAllTheTime = UserDefaults.standard.bool(forKey: "OnAllTheTime")
+        let ufm = UserDefaults.standard.float(forKey: "UpdateFrequencyMinutes")
+        frequencySection = FrequencySection(onAllTheTime: onAllTheTime, frequencyMinutes: ufm)
         sections = [frequencySection]
         super.init(coder: coder)
     }
@@ -117,6 +123,7 @@ class SwitchCellView : ConfigUITableViewCell<FrequencySection> {
     @IBOutlet weak var theSwitch: UISwitch!
 
     @IBAction func onAllTheTimeSwitchChanged(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: "OnAllTheTime")
         viewModel!.onAllTheTime = sender.isOn
         delegate?.reloadSection(vm: viewModel!)
     }
@@ -130,19 +137,20 @@ class FrequencyCellView : ConfigUITableViewCell<FrequencySection> {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var frequencyLabel: UILabel!
     @IBAction func sliderValueChanged(_ sender: UISlider) {
-        viewModel!.frequencyMinutes = sender.value
-        updateLabel(val: sender.value)
+        let actualVal = powf( sender.value, 4)
+        UserDefaults.standard.set(actualVal, forKey: "UpdateFrequencyMinutes")
+        viewModel!.frequencyMinutes = actualVal
+        updateLabel(val: actualVal)
     }
     
     override func updateView() {
         slider.minimumValue = 1
-        slider.maximumValue = Float(60).squareRoot().squareRoot()
-        slider.value = viewModel!.frequencyMinutes
+        slider.maximumValue = powf(60, 0.25)
+        slider.value = powf(viewModel!.frequencyMinutes, 0.25)
         updateLabel(val: viewModel!.frequencyMinutes)
     }
     
     func updateLabel(val: Float) {
-        let roundedVal = (val*val*val*val).rounded()
-        frequencyLabel.text = String(Int(roundedVal))
+        frequencyLabel.text = String(Int(val.rounded()))
     }
 }
