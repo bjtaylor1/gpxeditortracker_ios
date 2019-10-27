@@ -17,15 +17,107 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchSetting" rowHeight="99" id="xyb-Zx-ueN" customClass="SwitchCellView" customModule="GPXTracker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="99"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrackingGroupTitle" rowHeight="63" id="Gjn-qg-zK0">
+                                <rect key="frame" x="0.0" y="28" width="414" height="63"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gjn-qg-zK0" id="BrY-xF-KrO">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="63"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tracking group:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Of-Eh-ZG9">
+                                            <rect key="frame" x="20" y="19" width="366" height="25"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="6Of-Eh-ZG9" secondAttribute="bottom" constant="8" id="4KK-3i-lwE"/>
+                                        <constraint firstItem="6Of-Eh-ZG9" firstAttribute="leading" secondItem="BrY-xF-KrO" secondAttribute="leadingMargin" constant="8" id="EX5-Ca-BbN"/>
+                                        <constraint firstItem="6Of-Eh-ZG9" firstAttribute="top" secondItem="BrY-xF-KrO" secondAttribute="topMargin" constant="8" id="KDv-5T-qAq"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="6Of-Eh-ZG9" secondAttribute="trailing" constant="8" id="Ur5-nO-Mm2"/>
+                                        <constraint firstItem="6Of-Eh-ZG9" firstAttribute="leading" secondItem="BrY-xF-KrO" secondAttribute="leadingMargin" id="eRT-dq-eND"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="6Of-Eh-ZG9" secondAttribute="trailing" id="fKx-tb-Yu0"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrackingGroupUnset" rowHeight="128" id="qe4-Rf-2rB">
+                                <rect key="frame" x="0.0" y="91" width="414" height="128"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qe4-Rf-2rB" id="6rm-f2-oPm">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(not set)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRH-yg-T29">
+                                            <rect key="frame" x="20" y="11" width="366" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5r0-SX-SlO">
+                                            <rect key="frame" x="20" y="39.5" width="366" height="69.5"/>
+                                            <state key="normal" title="Scan QR code to set"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="kRH-yg-T29" secondAttribute="bottom" constant="8" id="DxK-8w-dUe"/>
+                                        <constraint firstItem="kRH-yg-T29" firstAttribute="top" secondItem="6rm-f2-oPm" secondAttribute="topMargin" id="HPH-zf-piX"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="5r0-SX-SlO" secondAttribute="trailing" constant="8" id="LmC-Mk-tPf"/>
+                                        <constraint firstItem="5r0-SX-SlO" firstAttribute="leading" secondItem="6rm-f2-oPm" secondAttribute="leadingMargin" id="Q2k-Qs-0lv"/>
+                                        <constraint firstItem="5r0-SX-SlO" firstAttribute="top" secondItem="kRH-yg-T29" secondAttribute="bottom" constant="8" id="Tg0-3i-qw4"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="kRH-yg-T29" secondAttribute="trailing" constant="8" id="Wg0-OX-8Vu"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="5r0-SX-SlO" secondAttribute="bottom" constant="8" id="ZKS-nC-OZy"/>
+                                        <constraint firstItem="kRH-yg-T29" firstAttribute="top" secondItem="6rm-f2-oPm" secondAttribute="topMargin" constant="8" id="oAS-qo-5vk"/>
+                                        <constraint firstItem="kRH-yg-T29" firstAttribute="leading" secondItem="6rm-f2-oPm" secondAttribute="leadingMargin" id="rcv-1i-ucv"/>
+                                        <constraint firstItem="kRH-yg-T29" firstAttribute="leading" secondItem="6rm-f2-oPm" secondAttribute="leadingMargin" id="z07-p1-iY6"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrackingGroupSet" rowHeight="112" id="BSM-5E-0fm">
+                                <rect key="frame" x="0.0" y="219" width="414" height="112"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BSM-5E-0fm" id="FhV-pE-5IM">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="112"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Tracking group name&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jz-KD-zgB">
+                                            <rect key="frame" x="20" y="19" width="195.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9IF-CO-UkA">
+                                            <rect key="frame" x="20" y="47.5" width="374" height="45.5"/>
+                                            <state key="normal" title="Scan QR code to change"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5P2-tp-aTh">
+                                            <rect key="frame" x="276" y="14" width="117.5" height="30"/>
+                                            <state key="normal" title="Clear"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="9IF-CO-UkA" secondAttribute="bottom" constant="8" id="3mY-NP-v1G"/>
+                                        <constraint firstItem="5P2-tp-aTh" firstAttribute="centerY" secondItem="9jz-KD-zgB" secondAttribute="centerY" id="Mwc-es-hr2"/>
+                                        <constraint firstItem="5P2-tp-aTh" firstAttribute="leading" secondItem="9jz-KD-zgB" secondAttribute="trailing" constant="53" id="P3u-Rf-Af7"/>
+                                        <constraint firstItem="9IF-CO-UkA" firstAttribute="top" secondItem="9jz-KD-zgB" secondAttribute="bottom" constant="8" id="Peg-bs-jyx"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="9IF-CO-UkA" secondAttribute="trailing" id="Q2G-LS-jo0"/>
+                                        <constraint firstItem="9jz-KD-zgB" firstAttribute="top" secondItem="FhV-pE-5IM" secondAttribute="topMargin" constant="8" id="Q7N-hx-Aro"/>
+                                        <constraint firstItem="9jz-KD-zgB" firstAttribute="leading" secondItem="FhV-pE-5IM" secondAttribute="leadingMargin" id="dnm-Rm-8jt"/>
+                                        <constraint firstItem="9IF-CO-UkA" firstAttribute="leading" secondItem="FhV-pE-5IM" secondAttribute="leadingMargin" id="lRQ-K4-fyJ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="9jz-KD-zgB" secondAttribute="bottom" constant="8" id="sIA-Aq-YJb"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="5P2-tp-aTh" secondAttribute="trailing" constant="8" id="teW-Kb-WQo"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchSetting" rowHeight="56" id="xyb-Zx-ueN" customClass="SwitchCellView" customModule="GPXTracker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="331" width="414" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xyb-Zx-ueN" id="R8A-IV-Sus">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On all the time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Lf-d3-Wj0">
-                                            <rect key="frame" x="20" y="11" width="317" height="69"/>
+                                            <rect key="frame" x="20" y="11" width="317" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="317" id="qCQ-oU-6ai"/>
                                             </constraints>
@@ -34,7 +126,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NMx-iK-q1a">
-                                            <rect key="frame" x="345" y="6" width="51" height="79"/>
+                                            <rect key="frame" x="345" y="6" width="51" height="36"/>
                                             <connections>
                                                 <action selector="onAllTheTimeSwitchChanged:" destination="xyb-Zx-ueN" eventType="valueChanged" id="Zer-VB-shk"/>
                                             </connections>
@@ -54,7 +146,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FrequencySetting" rowHeight="130" id="yuV-MU-Ow9" customClass="FrequencyCellView" customModule="GPXTracker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="127" width="414" height="130"/>
+                                <rect key="frame" x="0.0" y="387" width="414" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yuV-MU-Ow9" id="bt5-Uf-0jK">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>

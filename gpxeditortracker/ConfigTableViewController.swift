@@ -11,6 +11,7 @@ import UIKit
 class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
 
 
+    let trackingGroupSection : TrackingGroupSection
     let frequencySection : FrequencySection
     let sections : [SettingsSection]
     
@@ -21,10 +22,11 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
             "OnAllTheTime": false
         ])
         
+        trackingGroupSection = TrackingGroupSection(trackingGroupJsonSetting: UserDefaults.standard.string(forKey: "trackingGroupJson"))
         let onAllTheTime = UserDefaults.standard.bool(forKey: "OnAllTheTime")
         let ufm = UserDefaults.standard.float(forKey: "UpdateFrequencyMinutes")
         frequencySection = FrequencySection(onAllTheTime: onAllTheTime, frequencyMinutes: ufm)
-        sections = [frequencySection]
+        sections = [trackingGroupSection, frequencySection]
         super.init(coder: coder)
     }
     
@@ -78,6 +80,19 @@ class SettingsSection : Equatable {
     }
 }
 
+class TrackingGroupSection : SettingsSection {
+    var trackingGroup: TrackingGroupData?
+    
+    init(trackingGroupJsonSetting : String?) {
+        if let trackingGroupJson = trackingGroupJsonSetting {
+            trackingGroup = TrackingGroupData.parse(trackingGroupJson: trackingGroupJson)
+        }
+        super.init(name: "TrackingGroup", settings: ["TrackingGroupTitle", "TrackingGroupSet", "TrackingGroupUnset"])
+    }
+    
+    
+}
+
 class FrequencySection : SettingsSection {
     var onAllTheTime : Bool
     var frequencyMinutes: Float
@@ -117,6 +132,13 @@ class ConfigUITableViewCell<T : SettingsSection> : UITableViewCell, UpdateSettin
     
     func updateView() {
     }
+}
+
+class TrackingGroupUnsetTableViewCell : ConfigUITableViewCell<TrackingGroupSection> {
+}
+
+class TrackingGroupSetTableViewCell : ConfigUITableViewCell<TrackingGroupSection> {
+    
 }
 
 class SwitchCellView : ConfigUITableViewCell<FrequencySection> {
