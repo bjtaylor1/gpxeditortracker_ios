@@ -8,12 +8,12 @@
 
 import Foundation
 import UIKit
-class ConfigTableViewController : UITableViewController, SwitchCellViewDelegate {
+class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
 
     
     let frequencySection = FrequencySection(
         onAllTheTime: UserDefaults.standard.bool(forKey: "OnAllTheTime"),
-        frequencyMinutesRoot: UserDefaults.standard.float(forKey: "UpdateFrequencyMinutesRoot")
+        frequencyMinutes: UserDefaults.standard.float(forKey: "UpdateFrequencyMinutesRoot")
     )
     let sections : [SettingsSection]
     
@@ -43,13 +43,12 @@ class ConfigTableViewController : UITableViewController, SwitchCellViewDelegate 
         return cell
     }
     
-    func onAllTheTimeSettingChanged(newVal: Bool) {
-        guard let frequencySectionIndex = sections.firstIndex(of: frequencySection) else {
-            NSLog("WARN: frequencySectionIndex null")
+    func reloadSection(vm: SettingsSection) {
+        guard let sectionIndex = sections.firstIndex(of: vm) else {
+            NSLog("WARN: Could not find section to update")
             return
         }
-        frequencySection.onAllTheTime = newVal
-        theTableView.reloadSections(IndexSet([frequencySectionIndex]), with: .automatic)
+        theTableView.reloadSections(IndexSet([sectionIndex]), with: .automatic)
     }
 }
 
@@ -75,10 +74,10 @@ class SettingsSection : Equatable {
 
 class FrequencySection : SettingsSection {
     var onAllTheTime : Bool
-    var frequencyMinutesRoot: Float
-    init(onAllTheTime: Bool, frequencyMinutesRoot: Float) {
+    var frequencyMinutes: Float
+    init(onAllTheTime: Bool, frequencyMinutes: Float) {
         self.onAllTheTime = onAllTheTime
-        self.frequencyMinutesRoot = frequencyMinutesRoot
+        self.frequencyMinutes = frequencyMinutes
         super.init(name: "Frequency", settings: ["SwitchSetting", "FrequencySetting"])
     }
     override func showSetting(setting: String) -> Bool {
@@ -89,43 +88,41 @@ class FrequencySection : SettingsSection {
     }
 }
 
-protocol SwitchCellViewDelegate : class {
-    func onAllTheTimeSettingChanged(newVal: Bool)
+protocol ReloadSectionDelegate : class {
+    func reloadSection(vm : SettingsSection)
 }
 
 protocol UpdateSettingsSection {
-    func updateSection(section: SettingsSection, delegateTarget: Any)
+    func updateSection(section: SettingsSection, delegateTarget: ReloadSectionDelegate)
 }
 
 class ConfigUITableViewCell<T : SettingsSection> : UITableViewCell, UpdateSettingsSection {
     var viewModel : T? = nil
-    func updateSection(section: SettingsSection, delegateTarget: Any) {
+    weak var delegate : ReloadSectionDelegate?
+    func updateSection(section: SettingsSection, delegateTarget: ReloadSectionDelegate) {
         guard let specificSection = section as? T else {
             NSLog("WARN: passed wrong type of section (%@) to %@", String(describing: T.self), String(describing: self))
             return
         }
         viewModel = specificSection
-        updateView(delegateTarget: delegateTarget)
+        delegate = delegateTarget
+        updateView()
     }
     
-    func updateView(delegateTarget: Any) {
+    func updateView() {
     }
 }
 
 class SwitchCellView : ConfigUITableViewCell<FrequencySection> {
-    weak var delegate : SwitchCellViewDelegate?
     @IBOutlet weak var theSwitch: UISwitch!
 
     @IBAction func onAllTheTimeSwitchChanged(_ sender: UISwitch) {
         viewModel!.onAllTheTime = sender.isOn
-        delegate?.onAllTheTimeSettingChanged(newVal: theSwitch.isOn)
+        delegate?.reloadSection(vm: viewModel!)
     }
     
-    override func updateView(delegateTarget: Any) {
+    override func updateView() {
         theSwitch.isOn = viewModel!.onAllTheTime
-        if let switchCellViewDelegateTarget = delegateTarget as? SwitchCellViewDelegate {
-            self.delegate = switchCellViewDelegateTarget
-        }
     }
 }
 
@@ -133,19 +130,19 @@ class FrequencyCellView : ConfigUITableViewCell<FrequencySection> {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var frequencyLabel: UILabel!
     @IBAction func sliderValueChanged(_ sender: UISlider) {
-        viewModel!.frequencyMinutesRoot = sender.value
+        viewModel!.frequencyMinutes = sender.value
         updateLabel(val: sender.value)
     }
     
-    override func updateView(delegateTarget : Any) {
+    override func updateView() {
         slider.minimumValue = 1
-        slider.maximumValue = Float(60).squareRoot()
-        slider.value = viewModel!.frequencyMinutesRoot
-        updateLabel(val: viewModel!.frequencyMinutesRoot)
+        slider.maximumValue = Float(60).squareRoot().squareRoot()
+        slider.value = viewModel!.frequencyMinutes
+        updateLabel(val: viewModel!.frequencyMinutes)
     }
     
     func updateLabel(val: Float) {
-        let roundedVal = (val*val).rounded()
+        let roundedVal = (val*val*val*val).rounded()
         frequencyLabel.text = String(Int(roundedVal))
     }
 }
