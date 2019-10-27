@@ -25,7 +25,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On all the time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Lf-d3-Wj0">
-                                            <rect key="frame" x="20" y="11" width="317" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="317" height="69"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="317" id="qCQ-oU-6ai"/>
                                             </constraints>
@@ -34,13 +34,14 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NMx-iK-q1a">
-                                            <rect key="frame" x="345" y="6" width="51" height="31"/>
+                                            <rect key="frame" x="345" y="6" width="51" height="79"/>
                                             <connections>
                                                 <action selector="onAllTheTimeSwitchChanged:" destination="xyb-Zx-ueN" eventType="valueChanged" id="Zer-VB-shk"/>
                                             </connections>
                                         </switch>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="7Lf-d3-Wj0" secondAttribute="bottom" constant="8" id="05Q-Oo-6m7"/>
                                         <constraint firstItem="7Lf-d3-Wj0" firstAttribute="top" secondItem="R8A-IV-Sus" secondAttribute="topMargin" id="CVS-hr-0VG"/>
                                         <constraint firstItem="NMx-iK-q1a" firstAttribute="trailing" secondItem="R8A-IV-Sus" secondAttribute="trailingMargin" id="Nju-Fb-Q5M"/>
                                         <constraint firstItem="NMx-iK-q1a" firstAttribute="centerY" secondItem="7Lf-d3-Wj0" secondAttribute="centerY" id="Qko-GI-g1G"/>
