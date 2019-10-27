@@ -8,11 +8,14 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
 
 
     let trackingGroupSection : TrackingGroupSection
     let frequencySection : FrequencySection
+    let accuracySection : AccuracySection
+    let startTrackingSection : SettingsSection
     let sections : [SettingsSection]
     
     required init?(coder: NSCoder) {
@@ -25,8 +28,12 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
         trackingGroupSection = TrackingGroupSection(trackingGroupJsonSetting: UserDefaults.standard.string(forKey: "trackingGroupJson"))
         let onAllTheTime = UserDefaults.standard.bool(forKey: "OnAllTheTime")
         let ufm = UserDefaults.standard.float(forKey: "UpdateFrequencyMinutes")
+        
         frequencySection = FrequencySection(onAllTheTime: onAllTheTime, frequencyMinutes: ufm)
-        sections = [trackingGroupSection, frequencySection]
+        let accuracy = UserDefaults.standard.string(forKey: "Accuracy") ?? "1km"
+        accuracySection = AccuracySection(accuracyName: accuracy)
+        startTrackingSection = SettingsSection(name: "StartTracking", settings: ["StartTracking"])
+        sections = [trackingGroupSection, frequencySection, accuracySection, startTrackingSection]
         super.init(coder: coder)
     }
     
@@ -158,6 +165,31 @@ class FrequencySection : SettingsSection {
     }
 }
 
+class NameSection : SettingsSection {
+    var userName : String?
+    init(name:String) {
+        self.userName = name
+        super.init(name: "Name", settings: ["Name"])
+    }
+}
+
+class AccuracySection : SettingsSection {
+    var expanded : Bool = false
+    var accuracyName : String?
+    init(accuracyName : String) {
+        self.accuracyName = accuracyName
+        super.init(name: "Accuracy", settings: ["AccuracyHeader", "Accuracy"])
+    }
+    
+    override func showSetting(setting: String) -> Bool {
+        if setting == "Accuracy" {
+            return expanded
+        } else {
+            return super.showSetting(setting: setting)
+        }
+    }
+}
+
 protocol ReloadSectionDelegate : class {
     func reloadSection(vm : SettingsSection)
 }
@@ -239,5 +271,96 @@ class FrequencyCellView : ConfigUITableViewCell<FrequencySection> {
     
     func updateLabel(val: Float) {
         frequencyLabel.text = String(Int(val.rounded()))
+    }
+}
+
+class NameCellView : ConfigUITableViewCell<NameSection> {
+    @IBOutlet weak var nameTextField: UITextField!
+    override func updateView() {
+        guard let userName = viewModel?.userName else {
+            NSLog("WARN: userName not set")
+            return
+        }
+        nameTextField.text = userName
+    }
+    @IBAction func nameValueChanged(_ sender: UITextField) {
+        guard let vm = viewModel else {
+            NSLog("WARN: viewModel was null in nameValueChanged")
+            return
+        }
+        vm.userName = sender.text
+        UserDefaults.standard.set(sender.text, forKey: "trackingName")
+    }
+}
+
+class AccuracyHeaderCellView : ConfigUITableViewCell<AccuracySection> {
+    @IBOutlet weak var expand: UIButton!
+    @IBOutlet weak var accuracyLabel: UILabel!
+    @IBAction func expand(_ sender: Any) {
+        guard let vm = viewModel else {
+            NSLog("WARN: viewModel not set in AccuracyHeaderCellView")
+            return
+        }
+        vm.expanded = true
+        delegate?.reloadSection(vm: vm)
+    }
+    override func updateView() {
+        accuracyLabel.text = viewModel?.accuracyName
+    }
+}
+
+class AccuracyCellView : ConfigUITableViewCell<AccuracySection>,
+UIPickerViewDataSource, UIPickerViewDelegate {
+    @IBOutlet weak var accuracyPicker: UIPickerView!
+    let accuracies = [
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyThreeKilometers, title: "3km"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyKilometer, title: "1km"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyHundredMeters, title: "100m"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyNearestTenMeters, title: "10m"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyBest, title: "Best"),
+        LocationAccuracyChoice(accuracy: kCLLocationAccuracyBestForNavigation, title: "Best for navigation")
+    ]
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return accuracies.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return accuracies[row].Title
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let accuracy = accuracies[row]
+        UserDefaults.standard.set(accuracy.Title, forKey: "Accuracy")
+        guard let vm = viewModel else {
+            NSLog("WARN: viewModel not set in AccuracyCellView")
+            return
+        }
+        vm.accuracyName = accuracy.Title
+        vm.expanded = false
+        delegate?.reloadSection(vm: vm)
+    }
+    
+    @IBOutlet weak var picker: UIPickerView!
+    override func updateView() {
+        picker.delegate = self
+        picker.dataSource = self
+        
+        if let accuracyValue = viewModel?.accuracyName,
+            let index = accuracies.firstIndex(where: {a in a.Title == accuracyValue}) {
+            accuracyPicker.selectRow(index, inComponent: 0, animated: false)
+        }
+    }
+    
+    @IBAction func collapse(_ sender: Any) {
+        guard let vm = viewModel else {
+            NSLog("WARN: viewModel null in AccuracyCellView")
+            return
+        }
+        vm.expanded = false
+        delegate?.reloadSection(vm: vm)
     }
 }

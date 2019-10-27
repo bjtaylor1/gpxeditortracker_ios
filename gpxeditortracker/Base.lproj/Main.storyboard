@@ -96,6 +96,7 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9IF-CO-UkA">
                                             <rect key="frame" x="20" y="39.5" width="374" height="93.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <state key="normal" title="Scan QR code to change"/>
                                             <connections>
                                                 <segue destination="A62-aE-9TI" kind="showDetail" identifier="scanTrackingGroupQrSegue" id="f4W-na-ZeD"/>
@@ -117,8 +118,44 @@
                                     <outlet property="trackingGroupNameLabel" destination="9jz-KD-zgB" id="cH9-8K-gu9"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Name" rowHeight="112" id="N8h-IG-ohW" customClass="NameCellView" customModule="GPXTracker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="457" width="414" height="112"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N8h-IG-ohW" id="4nb-jr-ddP">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="112"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x5z-nx-fc5">
+                                            <rect key="frame" x="20" y="11" width="374" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Anz-T2-nhY">
+                                            <rect key="frame" x="20" y="40" width="374" height="61"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="nameValueChanged:" destination="N8h-IG-ohW" eventType="valueChanged" id="2ca-SR-kkx"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Anz-T2-nhY" secondAttribute="bottom" id="BN8-O8-R5b"/>
+                                        <constraint firstItem="Anz-T2-nhY" firstAttribute="leading" secondItem="4nb-jr-ddP" secondAttribute="leadingMargin" id="DlJ-4a-of9"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="x5z-nx-fc5" secondAttribute="trailing" id="Ktd-Xf-0cf"/>
+                                        <constraint firstItem="Anz-T2-nhY" firstAttribute="trailing" secondItem="4nb-jr-ddP" secondAttribute="trailingMargin" id="NHF-Nw-OLl"/>
+                                        <constraint firstItem="Anz-T2-nhY" firstAttribute="top" secondItem="x5z-nx-fc5" secondAttribute="bottom" constant="8" id="WOG-hP-jIB"/>
+                                        <constraint firstItem="x5z-nx-fc5" firstAttribute="leading" secondItem="4nb-jr-ddP" secondAttribute="leadingMargin" id="o7n-WH-iQv"/>
+                                        <constraint firstItem="x5z-nx-fc5" firstAttribute="top" secondItem="4nb-jr-ddP" secondAttribute="topMargin" id="pwy-x4-dAk"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameTextField" destination="Anz-T2-nhY" id="dvr-zN-n7X"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchSetting" rowHeight="56" id="xyb-Zx-ueN" customClass="SwitchCellView" customModule="GPXTracker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="457" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="569" width="414" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xyb-Zx-ueN" id="R8A-IV-Sus">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -154,7 +191,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FrequencySetting" rowHeight="130" id="yuV-MU-Ow9" customClass="FrequencyCellView" customModule="GPXTracker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="513" width="414" height="130"/>
+                                <rect key="frame" x="0.0" y="625" width="414" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yuV-MU-Ow9" id="bt5-Uf-0jK">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
@@ -200,6 +237,89 @@
                                     <outlet property="frequencyLabel" destination="H4V-YR-t7y" id="Nvx-UY-TPV"/>
                                     <outlet property="slider" destination="gY1-GE-mru" id="0I7-jn-6G5"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccuracyHeader" id="05Z-qj-6i0" customClass="AccuracyHeaderCellView" customModule="GPXTracker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="755" width="414" height="43"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="05Z-qj-6i0" id="Vnq-gL-wHH">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accuracy:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eI-Ai-4no">
+                                            <rect key="frame" x="20" y="11" width="76.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;accuracy&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fa0-Cc-owL">
+                                            <rect key="frame" x="104.5" y="11" width="98" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NNL-TG-LXg">
+                                            <rect key="frame" x="341" y="6.5" width="53" height="30"/>
+                                            <state key="normal" title="Change"/>
+                                            <connections>
+                                                <action selector="expand:" destination="05Z-qj-6i0" eventType="touchUpInside" id="FEN-41-1wQ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="0eI-Ai-4no" secondAttribute="bottom" id="1Bl-tM-jSe"/>
+                                        <constraint firstItem="NNL-TG-LXg" firstAttribute="centerY" secondItem="Fa0-Cc-owL" secondAttribute="centerY" id="8Tf-4M-6Qj"/>
+                                        <constraint firstItem="NNL-TG-LXg" firstAttribute="trailing" secondItem="Vnq-gL-wHH" secondAttribute="trailingMargin" id="E79-69-1S0"/>
+                                        <constraint firstItem="0eI-Ai-4no" firstAttribute="leading" secondItem="Vnq-gL-wHH" secondAttribute="leadingMargin" id="MY4-kE-RmR"/>
+                                        <constraint firstItem="0eI-Ai-4no" firstAttribute="top" secondItem="Vnq-gL-wHH" secondAttribute="topMargin" id="QIG-rV-zG1"/>
+                                        <constraint firstItem="Fa0-Cc-owL" firstAttribute="centerY" secondItem="Vnq-gL-wHH" secondAttribute="centerY" id="pum-aw-tZd"/>
+                                        <constraint firstItem="Fa0-Cc-owL" firstAttribute="leading" secondItem="0eI-Ai-4no" secondAttribute="trailing" constant="8" id="zr6-56-iDP"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="accuracyLabel" destination="Fa0-Cc-owL" id="hMm-x3-Yb2"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Accuracy" rowHeight="220" id="Aju-06-gqN" customClass="AccuracyCellView" customModule="GPXTracker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="798" width="414" height="220"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Aju-06-gqN" id="agD-bY-MCS">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VeK-LF-rDk">
+                                            <rect key="frame" x="20" y="11" width="374" height="198"/>
+                                        </pickerView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="VeK-LF-rDk" firstAttribute="top" secondItem="agD-bY-MCS" secondAttribute="topMargin" id="MSb-O2-ql4"/>
+                                        <constraint firstItem="VeK-LF-rDk" firstAttribute="trailing" secondItem="agD-bY-MCS" secondAttribute="trailingMargin" id="SZ7-QQ-Vlh"/>
+                                        <constraint firstItem="VeK-LF-rDk" firstAttribute="bottom" secondItem="agD-bY-MCS" secondAttribute="bottomMargin" id="svV-Oc-Ggf"/>
+                                        <constraint firstItem="VeK-LF-rDk" firstAttribute="leading" secondItem="agD-bY-MCS" secondAttribute="leadingMargin" id="uWf-fy-ytH"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="accuracyPicker" destination="VeK-LF-rDk" id="Sqi-kZ-C6T"/>
+                                    <outlet property="picker" destination="VeK-LF-rDk" id="isr-Qd-h8Q"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StartTracking" rowHeight="80" id="yZe-2y-bXz">
+                                <rect key="frame" x="0.0" y="1018" width="414" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yZe-2y-bXz" id="5T2-gq-MoV">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZz-1r-boi">
+                                            <rect key="frame" x="20" y="11" width="94" height="58"/>
+                                            <state key="normal" title="Start tracking"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="eZz-1r-boi" firstAttribute="top" secondItem="5T2-gq-MoV" secondAttribute="topMargin" id="FZi-3K-SMH"/>
+                                        <constraint firstItem="eZz-1r-boi" firstAttribute="leading" secondItem="5T2-gq-MoV" secondAttribute="leadingMargin" id="ZdN-9q-xgH"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="eZz-1r-boi" secondAttribute="bottom" id="gYO-Mf-ni2"/>
+                                    </constraints>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -277,18 +397,6 @@
                                     <segue destination="BYZ-38-t0r" kind="presentation" identifier="startTrackingSegue" id="ZRx-u6-r7H"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2Xh-Wk-gZG">
-                                <rect key="frame" x="20" y="252" width="374" height="193"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gW5-G9-IaM">
-                                    <size key="itemSize" width="260" height="115"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="YeB-oO-bUl" firstAttribute="leading" secondItem="Qjj-KW-fEe" secondAttribute="leading" id="05j-Nd-vSi"/>
