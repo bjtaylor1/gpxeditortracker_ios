@@ -20,6 +20,9 @@
 		AFA43D1E232EA63100F5529C /* gpxeditortracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AFA43D1C232EA63100F5529C /* gpxeditortracker.xcdatamodeld */; };
 		AFA43D20232EA63200F5529C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA43D1F232EA63200F5529C /* Assets.xcassets */; };
 		AFA43D23232EA63200F5529C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA43D21232EA63200F5529C /* LaunchScreen.storyboard */; };
+		AFAB8638236719EA00626442 /* ConfigGenerics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAB8637236719EA00626442 /* ConfigGenerics.swift */; };
+		AFAB863A23671A1A00626442 /* ConfigSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAB863923671A1A00626442 /* ConfigSections.swift */; };
+		AFAB863C23671AF900626442 /* ConfigViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAB863B23671AF900626442 /* ConfigViews.swift */; };
 		AFE980462336386C00B22E18 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE980452336386C00B22E18 /* Notifications.swift */; };
 		AFE980492339105600B22E18 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE980482339105600B22E18 /* ScannerViewController.swift */; };
 		AFF97D56235CEA4C0070D09B /* RemoveTrackingUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF97D55235CEA4C0070D09B /* RemoveTrackingUserData.swift */; };
@@ -41,6 +44,9 @@
 		AFA43D1F232EA63200F5529C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AFA43D22232EA63200F5529C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFA43D24232EA63200F5529C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFAB8637236719EA00626442 /* ConfigGenerics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigGenerics.swift; sourceTree = "<group>"; };
+		AFAB863923671A1A00626442 /* ConfigSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSections.swift; sourceTree = "<group>"; };
+		AFAB863B23671AF900626442 /* ConfigViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViews.swift; sourceTree = "<group>"; };
 		AFE980452336386C00B22E18 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		AFE980482339105600B22E18 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		AFF97D4E2354AAD80070D09B /* MG-2.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "MG-2.gpx"; path = "gpxeditortracker/MG-2.gpx"; sourceTree = "<group>"; };
@@ -95,6 +101,9 @@
 				AFF97D55235CEA4C0070D09B /* RemoveTrackingUserData.swift */,
 				AF7DB3B52364895C00B403F6 /* LocationAccuracyChoice.swift */,
 				AF7DB3B72364A88C00B403F6 /* ConfigTableViewController.swift */,
+				AFAB8637236719EA00626442 /* ConfigGenerics.swift */,
+				AFAB863923671A1A00626442 /* ConfigSections.swift */,
+				AFAB863B23671AF900626442 /* ConfigViews.swift */,
 			);
 			path = gpxeditortracker;
 			sourceTree = "<group>";
@@ -175,11 +184,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFAB863C23671AF900626442 /* ConfigViews.swift in Sources */,
+				AFAB8638236719EA00626442 /* ConfigGenerics.swift in Sources */,
 				AF57202823394A84009566AC /* TrackingGroupData.swift in Sources */,
 				AFE980462336386C00B22E18 /* Notifications.swift in Sources */,
 				AF7DB3B62364895C00B403F6 /* LocationAccuracyChoice.swift in Sources */,
 				AF7DB3B82364A88C00B403F6 /* ConfigTableViewController.swift in Sources */,
 				AFF97D56235CEA4C0070D09B /* RemoveTrackingUserData.swift in Sources */,
+				AFAB863A23671A1A00626442 /* ConfigSections.swift in Sources */,
 				AFA43D18232EA63100F5529C /* MapViewController.swift in Sources */,
 				AF54A7FC2341F2DF00388205 /* UpdateLocationData.swift in Sources */,
 				AF54A7FA23412B9200388205 /* ScannerContainerViewController.swift in Sources */,
