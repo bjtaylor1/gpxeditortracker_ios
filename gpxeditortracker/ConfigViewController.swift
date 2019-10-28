@@ -73,7 +73,7 @@ class ConfigViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     @IBAction func nameEditingChange(_ sender: Any) {
         NSLog("nameEditingChange: %@", nameTextBox?.text ?? "(nil)")
-        LocationManager.Instance.name = nameTextBox.text
+        LocationManager.Instance.userName = nameTextBox.text
         UserDefaults.standard.set(nameTextBox?.text, forKey: "trackingName")
     }
     
@@ -97,7 +97,7 @@ class ConfigViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             setTrackingGroupData(trackingGroupJson: trackingGroupJson, save: false)
         }
         if let name = UserDefaults.standard.string(forKey: "trackingName") {
-            LocationManager.Instance.name = name
+            LocationManager.Instance.userName = name
             nameTextBox.text = name
         }
         
@@ -181,7 +181,7 @@ class ConfigViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                 showError(title: "Tracking group not set", message: "Please set a tracking group by clicking the button above and then scanning the tracking group's QR code on the GPXEditor site.")
                 return false
             }
-            else if LocationManager.Instance.name == nil || LocationManager.Instance.name?.count ?? 0 < 3 {
+            else if LocationManager.Instance.userName == nil || LocationManager.Instance.userName?.count ?? 0 < 3 {
                 showError(title: "Name not set", message: "Please enter a name of at least 3 characters.")
                 return false
             }

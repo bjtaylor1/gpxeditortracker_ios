@@ -8,15 +8,18 @@
 
 import Foundation
 import CoreLocation
-
+import UIKit
 class LocationManager : NSObject, CLLocationManagerDelegate {
     static let Instance = LocationManager()
     let locationManager = CLLocationManager()
-    var lastLocationReceived: CLLocation? = nil
+    var lastAccurateLocationReceived: CLLocation? = nil
+    var lastLocationUpdated: CLLocation? = nil
     var trackingGroupData: TrackingGroupData? = nil
-    var name: String? = nil
+    var userName: String? = nil
     let userId: UUID
+    var updateFrequencyMinutes: Float = 15
     
+
     override init() {
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss.fff"
         
@@ -31,25 +34,26 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
     #if DEBUG
     let minSecondsBetweenUpdates = TimeInterval(integerLiteral: 10)
     #else
-    let minSecondsBetweenUpdates = TimeInterval(integerLiteral: 600)
+    let minSecondsBetweenUpdates = TimeInterval(integerLiteral: 120)
     #endif
     
     func start() {
         NSLog("starting LocationManager...")
         
         locationManager.distanceFilter = 100
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
     }
     
     func stop() {
         NSLog("stopping LocationManager")
         locationManager.stopUpdatingLocation()
-        lastLocationReceived = nil
-        
+        lastLocationUpdated = nil
+        lastAccurateLocationReceived = nil
         sendRemoveUserData()
     }
     
@@ -97,28 +101,63 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
     
     let dateFormatter = DateFormatter()
     func shouldNotifyLocationReceivedAt(location: CLLocation) -> Bool {
-        
-        guard let lastLocationReceivedValue = lastLocationReceived else {
+        guard let lastAccurateLocationReceivedValue = lastLocationUpdated else {
             NSLog("lastLocationReceived is nil - returning true")
             return true
         }
-        let earliestTimeToNotify = lastLocationReceivedValue.timestamp.addingTimeInterval(minSecondsBetweenUpdates)
-        let shouldNotify: (Bool) = (location.timestamp >= earliestTimeToNotify || location.distance(from: lastLocationReceivedValue) > 150)
+        let earliestTimeToNotify = lastAccurateLocationReceivedValue.timestamp.addingTimeInterval(minSecondsBetweenUpdates)
+        let shouldNotify: (Bool) = (location.timestamp >= earliestTimeToNotify || location.distance(from: lastAccurateLocationReceivedValue) > 150)
         return shouldNotify;
+    }
+    
+    func needAccurateLocation(currentTime: Date) -> Bool {
+        if let lastAccurateLocationReceivedValue = lastAccurateLocationReceived  {
+            guard let timeInterval = TimeInterval(exactly: updateFrequencyMinutes) else {
+                NSLog("WARN: timeInterval init returned null")
+                return true
+            }
+            let timeNeeded = lastAccurateLocationReceivedValue.timestamp.addingTimeInterval(timeInterval)
+            return currentTime > timeNeeded
+        } else {
+            return true
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let lastLocation = locations.last {
-            if lastLocation.horizontalAccuracy < 150 {
-                let shouldUpdate = shouldNotifyLocationReceivedAt(location: lastLocation)
-            NSLog("Received location: %.5f, %.5f, %.5f, shouldUpdate = %i, thread = %@", lastLocation.coordinate.latitude, lastLocation.coordinate.longitude, lastLocation.horizontalAccuracy, shouldUpdate, Thread.current.description)
-                if shouldUpdate {
-                    NotificationCenter.default.post(name: .onLocationReceived, object: lastLocation)
-                    uploadLocation(location: lastLocation)
-                    lastLocationReceived = lastLocation
+             if lastLocation.horizontalAccuracy < 100 {
+                accurateLocationReceived(lastLocation: lastLocation)
+             } else {
+                //do we need an accurate one?
+                if needAccurateLocation(currentTime: lastLocation.timestamp) {
+                    upgradeAccuracyRequirement()
                 }
             }
         }
+    }
+    
+    func upgradeAccuracyRequirement() {
+        NSLog("Upgrade Accuracy Requirement")
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.pausesLocationUpdatesAutomatically = false
+    }
+    
+    func downgradeAccuracyRequirement() {
+        NSLog("Downgrade Accuracy Requirement")
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.pausesLocationUpdatesAutomatically = true
+    }
+    
+    func accurateLocationReceived(lastLocation: CLLocation) {
+        lastAccurateLocationReceived = lastLocation
+        downgradeAccuracyRequirement()
+        let shouldUpdate = shouldNotifyLocationReceivedAt(location: lastLocation)
+        NSLog("Received location: %.5f, %.5f, %.5f, shouldUpdate = %i, thread = %@", lastLocation.coordinate.latitude, lastLocation.coordinate.longitude, lastLocation.horizontalAccuracy, shouldUpdate, Thread.current.description)
+            if shouldUpdate {
+                NotificationCenter.default.post(name: .onLocationReceived, object: lastLocation)
+                uploadLocation(location: lastLocation)
+                lastLocationUpdated = lastLocation
+            }
     }
     
     func uploadLocation(location: CLLocation) {
@@ -126,7 +165,7 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
             NSLog("WARNING: trackingGroupData nil")
             return
         }
-        guard let nameValue = name else {
+        guard let nameValue = userName else {
             NSLog("WARNING: name not set")
             return
         }

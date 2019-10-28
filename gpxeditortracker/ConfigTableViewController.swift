@@ -9,10 +9,11 @@
 import Foundation
 import UIKit
 import CoreLocation
-class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
+class ConfigTableViewController : UITableViewController, ReloadSectionDelegate, RequestUserNameChangeDelegate {
 
 
     let trackingGroupSection : TrackingGroupSection
+    let nameSection : NameSection
     let frequencySection : FrequencySection
     let accuracySection : AccuracySection
     let startTrackingSection : SettingsSection
@@ -25,15 +26,22 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
             "OnAllTheTime": false
         ])
         
-        trackingGroupSection = TrackingGroupSection(trackingGroupJsonSetting: UserDefaults.standard.string(forKey: "trackingGroupJson"))
+        let trackingGroupJson = UserDefaults.standard.string(forKey: "trackingGroupJson")
+        trackingGroupSection = TrackingGroupSection(trackingGroupJsonSetting: trackingGroupJson)
+        
         let onAllTheTime = UserDefaults.standard.bool(forKey: "OnAllTheTime")
         let ufm = UserDefaults.standard.float(forKey: "UpdateFrequencyMinutes")
-        
         frequencySection = FrequencySection(onAllTheTime: onAllTheTime, frequencyMinutes: ufm)
+        
         let accuracy = UserDefaults.standard.string(forKey: "Accuracy") ?? "1km"
         accuracySection = AccuracySection(accuracyName: accuracy)
+        
+        let userName = UserDefaults.standard.string(forKey: "trackingName") ?? ""
+        nameSection = NameSection(userName: userName)
+
         startTrackingSection = SettingsSection(name: "StartTracking", settings: ["StartTracking"])
-        sections = [trackingGroupSection, frequencySection, accuracySection, startTrackingSection]
+        sections = [trackingGroupSection, nameSection, frequencySection, accuracySection, startTrackingSection]
+        
         super.init(coder: coder)
     }
     
@@ -42,6 +50,10 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
          {(notification) in self.handleSetTrackingGroupQrCodeReceived(notification: notification)})
         
         theTableView.tableFooterView = UIView() // gets rid of extraneous lines at the bottom
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true);
     }
     
     func handleSetTrackingGroupQrCodeReceived(notification: Notification) {
@@ -86,6 +98,10 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
         if let theCell = cell as? UpdateSettingsSection {
             theCell.updateSection(section: section, delegateTarget: self)
         }
+        
+        if let theCell = cell as? NameCellView {
+            theCell.requestUserNameChangeDelegate = self
+        }
         return cell
     }
     
@@ -97,6 +113,23 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
         theTableView.reloadSections(IndexSet([sectionIndex]), with: .automatic)
     }
     
+    func requestUserNameChange(sender: NameCellView) {
+        let alert = UIAlertController(title: "Name", message: "Please enter your name as it will appear on the map", preferredStyle: .alert)
+        alert.addTextField(configurationHandler:
+            {textField in textField.text = self.nameSection.userName})
+        alert.addAction(UIAlertAction(title:"Cancel", style: .cancel, handler: {action in NSLog("alert cancelled")}))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
+            guard let newUserName = alert.textFields?.first?.text else {
+                NSLog("WARN: newUserName null")
+                return
+            }
+            self.nameSection.userName = newUserName
+            UserDefaults.standard.set(newUserName, forKey: "trackingName")
+            sender.updateView()
+        }))
+        present(alert, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "scanTrackingGroupQrSegue" {
             guard let scannerContainerViewController = segue.destination as? ScannerContainerViewController else {
@@ -104,6 +137,29 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
                 return
             }
             scannerContainerViewController.notificationName = .onSetTrackingGroupQrCodeReceived
+        }
+    }
+
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "startTrackingSegue" {
+            
+            if trackingGroupSection.trackingGroup == nil {
+                showError(title: "Tracking group not set", message: "Please set a tracking group by clicking the button above and then scanning the tracking group's QR code on the GPXEditor site.")
+                return false
+            }
+            else if nameSection.userName?.count ?? 0 < 3 {
+                showError(title: "Name not set", message: "Please enter a name of at least 3 characters.")
+                return false
+            }
+        }
+        return true
+    }
+    
+    override func performSegue(withIdentifier identifier: String, sender: Any?) {
+        if identifier == "startTrackingSegue" {
+            LocationManager.Instance.trackingGroupData = trackingGroupSection.trackingGroup
+            LocationManager.Instance.userName = nameSection.userName
+            LocationManager.Instance.updateFrequencyMinutes = frequencySection.frequencyMinutes
         }
     }
 }
@@ -174,8 +230,8 @@ class NoSeparatorCellView : UITableViewCell {
 
 class NameSection : SettingsSection {
     var userName : String?
-    init(name:String) {
-        self.userName = name
+    init(userName:String) {
+        self.userName = userName
         super.init(name: "Name", settings: ["Name"])
     }
 }
@@ -281,22 +337,34 @@ class FrequencyCellView : ConfigUITableViewCell<FrequencySection> {
     }
 }
 
+
+protocol RequestUserNameChangeDelegate : class {
+    func requestUserNameChange(sender: NameCellView)
+}
+
 class NameCellView : ConfigUITableViewCell<NameSection> {
-    @IBOutlet weak var nameTextField: UITextField!
+
+    weak var requestUserNameChangeDelegate : RequestUserNameChangeDelegate?
+    
+    @IBOutlet weak var nameLabel: UILabel!
     override func updateView() {
         guard let userName = viewModel?.userName else {
             NSLog("WARN: userName not set")
             return
         }
-        nameTextField.text = userName
+        nameLabel.text = userName
     }
-    @IBAction func nameValueChanged(_ sender: UITextField) {
+    @IBAction func clickChange(_ sender: Any) {
+        requestUserNameChangeDelegate?.requestUserNameChange(sender: self)
+    }
+    @IBAction func nameEditingChanged(_ sender: UITextField) {
         guard let vm = viewModel else {
             NSLog("WARN: viewModel was null in nameValueChanged")
             return
         }
         vm.userName = sender.text
         UserDefaults.standard.set(sender.text, forKey: "trackingName")
+        //don't need to trigger the delegate, but would if anything changed as a result of it
     }
 }
 
