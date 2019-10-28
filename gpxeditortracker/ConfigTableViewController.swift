@@ -41,6 +41,7 @@ class ConfigTableViewController : UITableViewController, ReloadSectionDelegate {
         NotificationCenter.default.addObserver(forName: .onSetTrackingGroupQrCodeReceived, object: nil, queue: OperationQueue.main, using:
          {(notification) in self.handleSetTrackingGroupQrCodeReceived(notification: notification)})
         
+        theTableView.tableFooterView = UIView() // gets rid of extraneous lines at the bottom
     }
     
     func handleSetTrackingGroupQrCodeReceived(notification: Notification) {
@@ -146,7 +147,6 @@ class TrackingGroupSection : SettingsSection {
             return super.showSetting(setting: setting)
         }
     }
-    
 }
 
 class FrequencySection : SettingsSection {
@@ -162,6 +162,13 @@ class FrequencySection : SettingsSection {
             return !onAllTheTime
         }
         return super.showSetting(setting: setting)
+    }
+}
+
+class NoSeparatorCellView : UITableViewCell {
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
     }
 }
 
@@ -304,6 +311,8 @@ class AccuracyHeaderCellView : ConfigUITableViewCell<AccuracySection> {
         vm.expanded = true
         delegate?.reloadSection(vm: vm)
     }
+    
+
     override func updateView() {
         accuracyLabel.text = viewModel?.accuracyName
     }
